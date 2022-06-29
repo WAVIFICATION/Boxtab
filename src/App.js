@@ -1,24 +1,14 @@
-import logo from './logo.svg';
-import './App.css';
+// import logo from './logo.svg';
+// import './App.css';
+// import '../node_modules/react-grid-layout/css/styles.css';
+// import '../node_modules/react-resizable/css/styles.css';
+// import Enclosure from './GridLayout/Enclosure'
+// import GridLayout from "react-grid-layout";
+import Grid from './GridLayout/Grid'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Grid />
   );
 }
 
