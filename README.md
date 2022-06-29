@@ -1,5 +1,4 @@
 # Boxtab
+Browser plugin with modular widgets
 
-Browser plugin project with modular widgets.
-
-![boxtabjpg](https://user-images.githubusercontent.com/26165986/176352307-a4b95672-b5b6-4377-926e-ffc2d203b810.jpg)
+![boxtabjpg](https://user-images.githubusercontent.com/26165986/176365861-8ec728a0-9775-4b23-ad21-02d007444148.jpg)
