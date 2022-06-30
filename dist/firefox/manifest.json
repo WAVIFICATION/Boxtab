@@ -1,0 +1,23 @@
+{
+    "manifest_version": 2,
+    "name": "Boxtab",
+    "short_name": "Boxtab",
+    "version": "0.0.1",
+    "description": "Browser plugin with modular widgets",
+    "applications": {
+      "gecko": {
+        "id": "extension@boxtab.xyz",
+        "strict_min_version": "54.0"
+      }
+    },
+    "chrome_settings_overrides": {
+      "homepage": "index.html"
+    },
+    "chrome_url_overrides": {
+      "newtab": "index.html"
+    },
+    "icons": {
+
+    },
+    "permissions": ["storage"]
+  }
