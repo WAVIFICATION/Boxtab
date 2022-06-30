@@ -25,5 +25,5 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm install
-    - run: npm run build:firefox
+    - run: npm run build:firefox --verbose
     - run: npm test
