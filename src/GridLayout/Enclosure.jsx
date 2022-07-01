@@ -1,19 +1,13 @@
 import PropTypes from 'prop-types'; // ES6
 import React from 'react';
-import ClockPlugin from '../Widgets/Clock';
+import Widgets from '../Addons/Widgets';
 
-function Enclosure({ name }) {
-  // console.log(props)
-
+function Enclosure(props) {
   return (
     <div style={{ backgroundColor: '#cccccc', display: 'inline-block' }}>
-      {name}
-      <ClockPlugin />
+      {props.width}-{props.height}
+      <Widgets width={props.width} height={props.height} type ='AnalogClock'/>
     </div>
   );
 }
 export default Enclosure;
-
-Enclosure.propTypes = {
-  name: PropTypes.string.isRequired,
-};

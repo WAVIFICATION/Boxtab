@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Clock from 'react-clock';
 import 'react-clock/dist/Clock.css';
 
-function ClockPlugin() {
+function ClockPlugin(props) {
   const [value, setValue] = useState(new Date());
 
   useEffect(() => {
@@ -15,8 +15,8 @@ function ClockPlugin() {
 
   return (
     <div>
-      <p>Current time:</p>
-      <Clock value={value} />
+      {/* <p>Current time:</p> */}
+      <Clock value={value} size={Math.min(props.height, props.width)}/>
     </div>
   );
 }
