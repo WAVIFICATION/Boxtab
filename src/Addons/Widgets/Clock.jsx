@@ -15,7 +15,6 @@ function ClockPlugin(props) {
 
   return (
     <div>
-      {/* <p>Current time:</p> */}
       <Clock value={value} size={Math.min(props.height, props.width)}/>
     </div>
   );

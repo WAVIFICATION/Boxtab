@@ -3,7 +3,7 @@ async function getRandomImage() {
     const url = 'https://api.unsplash.com/photos/random';
     const params = new URLSearchParams();
 
-    const headers = new Headers({ Authorization: 'Client-ID xxx' });
+    const headers = new Headers({ Authorization: 'Client-ID ' + process.env.REACT_APP_Unsplash_API_Key });
     const response = await fetch(`${url}?${params}`, { headers, cache: 'no-cache' });
     const body = [];
     body.push(await response.json())
