@@ -5,3 +5,19 @@
     position: absolute; top: 0; left: 0;
     /* max-height: inherit; */
 }
+
+.credits {
+    /* display: grid; */
+    /* grid-template-columns: 1fr ; */
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    right: 1rem;
+    color: white;
+}
+.credit-element {
+    display:inline-block;
+}
+a{  
+    color: white;  
+}  

@@ -15,12 +15,10 @@ function Grid(props) {
   useEffect(() => {
     const existingLayout = localStorage.getItem('Boxtab-layout');
     setLayout(existingLayout ? JSON.parse(existingLayout) : [ { i: 'a', x: 0, y: 0, w: 1, h: 2, }, { i: 'b', x: 1, y: 0, w: 3, h: 2, }, { i: 'c', x: 4, y: 0, w: 1, h: 2, }, ]);
-    console.log(layout)
   },[]);
 
 
   function changedLayout(layout) {
-    console.log(layout)
     setLayout(layout)
     localStorage.setItem('Boxtab-layout', JSON.stringify(layout));
   }
@@ -43,7 +41,7 @@ function Grid(props) {
       compactType={null}
       isBounded={true}
       style={{width: '100%', height: '100%'}}
-      // margin={[0,0]}
+      margin={[0,0]}
       preventCollision={true}
     >
       {layout.map(generateLayout)}
