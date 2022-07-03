@@ -1,6 +1,7 @@
 // import { useEffect, useState, cloneElement } from 'react';
 // import getRandomImage from './api';
 // import './index.css';
+import { Link } from "@material-ui/core";
 
 function Credits(props) {
     return(
@@ -8,28 +9,28 @@ function Credits(props) {
         className="credits"
         >
             <div className="credit-element">
-                <a href={props.credits.userLink+'?utm_source=Start&utm_medium=referral&utm_campaign=api-credit'}>
+                <Link href={props.credits.userLink+'?utm_source=Start&utm_medium=referral&utm_campaign=api-credit'} underline="hover" color="inherit">
                     {props.credits.userName}
-                </a>
+                </Link>
             </div>
             {'/'}
             <div className="credit-element">
-                <a href={props.credits.imageLink+'?utm_source=Start&utm_medium=referral&utm_campaign=api-credit'}>
+                <Link href={props.credits.imageLink+'?utm_source=Start&utm_medium=referral&utm_campaign=api-credit'} underline="hover" color="inherit">
                     Photo
-                </a>
+                </Link>
             </div>
             {'/'}
             <div className="credit-element">
-                <a href='https://unsplash.com/?utm_source=Start&utm_medium=referral&utm_campaign=api-credit'>
+                <Link href='https://unsplash.com/?utm_source=Start&utm_medium=referral&utm_campaign=api-credit' underline="hover" color="inherit">
                     Unsplash
-                </a>
+                </Link>
             </div>
             {props.credits.location!=null &&
             <div className="credit-element">
                 {'/'}
-                <a>
+                <Link underline="hover" color="inherit">
                     {props.credits.location}
-                </a>
+                </Link>
             </div>
             }
         </div>

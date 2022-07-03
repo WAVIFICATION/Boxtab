@@ -4,7 +4,7 @@ import Widgets from '../Addons/Widgets';
 
 function Enclosure(props) {
   return (
-    <div style={{ backgroundColor: '#cccccc', display: 'inline-block' }}>
+    <div style={{  display: 'inline-block' }}>
       <Widgets width={props.width} height={props.height} type ='AnalogClock'/>
     </div>
   );

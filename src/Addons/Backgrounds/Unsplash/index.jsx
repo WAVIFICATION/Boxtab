@@ -1,31 +1,50 @@
 import { useEffect, useState, cloneElement } from 'react';
-import getRandomImage from './api';
+import {getRandomImage, imageOptimisation} from './api';
 import './index.css';
 import Credits from './Credits';
+import {CacheStorageSave, CacheStorageRead} from '../../../Util/Cache';
+import { Now, AddMinutesToDate } from '../../../Util/Datetime';
 
 function Unsplash(props) {
-    const [imageUrl, setImageUrl] = useState('');
-    const [creditsDetails, setcreditsDetails] = useState('');
 
-    useEffect(() => {
-        const fetchImageInfoBlock = async () => {
-            const imageInfoBlock = await getRandomImage();
-            setImageUrl(imageInfoBlock[0].src)
-            setcreditsDetails(imageInfoBlock[0].credit)
-        };
-       fetchImageInfoBlock();
-        
-    }, [])
-    return(
-        <div
-        className="fullscreen"
-        style={{ backgroundImage: imageUrl ? `url(${imageUrl})` : undefined, width: props.width, height: props.height }}
-        >
-            
-            {cloneElement(props.children, { height: props.height, width: props.width })}
-            <Credits credits={creditsDetails}/>
-        </div>
-    );
+  const params = new URLSearchParams();
+  params.append('q',85);
+  params.append('w', imageOptimisation(props.width))
+
+  const [imageUrl, setImageUrl] = useState('');
+  const [creditsDetails, setcreditsDetails] = useState('');
+  const timeLimit = 5;//5min
+
+  useEffect(() => {
+    const fetchImageInfoBlock = async () => {
+      const cachedimageInfoBlock = CacheStorageRead('Unsplash-imageInfoBlock');
+      let imageInfoBlock = {};
+      const now = Now();
+
+      if (cachedimageInfoBlock!=null && AddMinutesToDate(new Date(cachedimageInfoBlock.updateBy), timeLimit) > now){
+        imageInfoBlock = cachedimageInfoBlock.data;
+      }
+      else {
+        imageInfoBlock = await getRandomImage();
+        imageInfoBlock = imageInfoBlock[0]
+        CacheStorageSave('Unsplash-imageInfoBlock', imageInfoBlock, now, AddMinutesToDate(now,timeLimit))
+      }
+      setImageUrl(imageInfoBlock.src)
+      setcreditsDetails(imageInfoBlock.credit)
+    };
+      fetchImageInfoBlock();
+      
+  }, [])
+  return(
+      <div
+      className="fullscreen"
+      style={{ backgroundImage: imageUrl ? `url(${imageUrl}?${params})` : undefined, width: props.width, height: props.height }}
+      >
+          
+          {cloneElement(props.children, { height: props.height, width: props.width })}
+          <Credits credits={creditsDetails}/>
+      </div>
+  );
 }
 
 export default Unsplash;
