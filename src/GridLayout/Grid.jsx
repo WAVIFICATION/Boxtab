@@ -3,24 +3,25 @@ import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
 import RGL, { WidthProvider } from 'react-grid-layout';
 import Enclosure from './Enclosure';
+import {CacheStorageSave, CacheStorageRead} from '../Util/Cache';
 
 const ReactGridLayout = WidthProvider(RGL);
 
 function Grid(props) {
   const heightRatio = 50;
   const cols = 12;
-  const rowHeight = 60;
+  const rowHeight = 30;
 
   const [layout, setLayout] = useState([]);
   useEffect(() => {
-    const existingLayout = localStorage.getItem('Boxtab-layout');
-    setLayout(existingLayout ? JSON.parse(existingLayout) : [ { i: 'a', x: 0, y: 0, w: 1, h: 2, }, { i: 'b', x: 1, y: 0, w: 3, h: 2, }, { i: 'c', x: 4, y: 0, w: 1, h: 2, }, ]);
+    const existingLayout = CacheStorageRead('layout');
+    setLayout(existingLayout ? JSON.parse(existingLayout.data) : [ { i: 'a', x: 0, y: 0, w: 1, h: 2, }, { i: 'b', x: 1, y: 0, w: 3, h: 2, }, { i: 'c', x: 4, y: 0, w: 1, h: 2, }, ]);
   },[]);
 
 
   function changedLayout(layout) {
     setLayout(layout)
-    localStorage.setItem('Boxtab-layout', JSON.stringify(layout));
+    CacheStorageSave('layout', JSON.stringify(layout));
   }
 
   function generateLayout(layout) {
