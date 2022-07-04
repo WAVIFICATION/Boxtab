@@ -33,7 +33,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "prepare": "husky install",
-    "pre-commit": ""
+    "pre-commit": "lint-staged"
   },
   "eslintConfig": {
     "extends": [

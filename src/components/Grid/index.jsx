@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
 import RGL, { WidthProvider } from 'react-grid-layout';
-import Enclosure from './Enclosure';
-import { CacheStorageSave, CacheStorageRead } from '../Util/Cache';
+import Enclosure from 'components/Enclosure';
+import { cacheStorageSave, cacheStorageRead } from 'utils/cache';
 import { forwardRef, useImperativeHandle } from 'react';
 import { nanoid } from 'nanoid';
 import CancelIcon from '@mui/icons-material/Cancel';
@@ -28,7 +28,7 @@ const Grid = forwardRef((props, ref) => {
   const [enableEdit, setEnableEdit] = useState(false);
 
   useEffect(() => {
-    const existingLayout = CacheStorageRead('layout');
+    const existingLayout = cacheStorageRead('layout');
     setLayout(
       existingLayout
         ? JSON.parse(existingLayout.data)
@@ -42,7 +42,7 @@ const Grid = forwardRef((props, ref) => {
 
   function changedLayout(layout) {
     setLayout(layout);
-    CacheStorageSave('layout', JSON.stringify(layout));
+    cacheStorageSave('layout', JSON.stringify(layout));
   }
 
   function generateLayout(layout) {

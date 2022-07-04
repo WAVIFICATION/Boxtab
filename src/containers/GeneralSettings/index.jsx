@@ -11,7 +11,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Collapse from '@mui/material/Collapse';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
-import ListOfwidgets from '../../Addons/Widgets/ListOfWidgets';
+import ListOfwidgets from 'addons/Widgets/ListOfWidgets';
 
 export default function GeneralSettings(props) {
   const [open, setOpen] = useState(false);
@@ -29,7 +29,7 @@ export default function GeneralSettings(props) {
     // boxShadow: 24,
     p: 4,
   };
-  console.log(ListOfwidgets)
+  console.log(ListOfwidgets);
 
   return (
     <div>
@@ -62,14 +62,20 @@ export default function GeneralSettings(props) {
           </Typography>
 
           <List>
-            <ListItemButton onClick={() => {setOpenWidgets(!openWidgets)}}>
+            <ListItemButton
+              onClick={() => {
+                setOpenWidgets(!openWidgets);
+              }}
+            >
               <ListItemIcon>{/* <InboxIcon /> */}</ListItemIcon>
               <ListItemText primary="Widgets" />
               {openWidgets ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
             <Collapse in={openWidgets} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
-                {ListOfwidgets.list.map((widgets) => WidgetLister(widgets, props.addWidgets))}
+                {ListOfwidgets.list.map(widgets =>
+                  WidgetLister(widgets, props.addWidgets),
+                )}
               </List>
             </Collapse>
           </List>
@@ -83,7 +89,10 @@ function WidgetLister(widgetInfo, addWidgets) {
   return (
     <ListItemButton sx={{ pl: 4 }} key={widgetInfo.WidgetName}>
       <ListItemIcon>{/* <InboxIcon /> */}</ListItemIcon>
-      <ListItemText primary={widgetInfo.DisplayName} onClick={() => addWidgets(widgetInfo.WidgetName)}/>
+      <ListItemText
+        primary={widgetInfo.DisplayName}
+        onClick={() => addWidgets(widgetInfo.WidgetName)}
+      />
     </ListItemButton>
   );
 }
