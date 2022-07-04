@@ -1,7 +1,7 @@
 // import { useEffect, useState, cloneElement } from 'react';
 // import getRandomImage from './api';
 // import './index.css';
-import { Link } from "@material-ui/core";
+import Link from '@mui/material/Link';
 
 function Credits(props) {
     return(
