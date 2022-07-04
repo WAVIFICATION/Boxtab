@@ -1,6 +1,6 @@
 import { useEffect, useState, cloneElement, Children } from 'react';
 import { cacheStorageSave, cacheStorageRead } from 'utils/cache';
-import { now, addMinutesToDate } from 'utils/datetime';
+import { now, addMinutesToDate } from '../../../utils/datetime';
 import { getRandomImage } from './api';
 import { imageOptimisation } from 'utils/image';
 import './index.css';
@@ -19,12 +19,12 @@ function Unsplash(props) {
     const fetchImageInfoBlock = async () => {
       const cachedimageInfoBlock = cacheStorageRead('Unsplash-imageInfoBlock');
       let imageInfoBlock = {};
-      const now = now()();
+      const nowTime = now();
 
       if (
         cachedimageInfoBlock != null &&
         addMinutesToDate(new Date(cachedimageInfoBlock.updateBy), timeLimit) >
-          now
+          nowTime
       ) {
         imageInfoBlock = cachedimageInfoBlock.data;
       } else {
@@ -33,8 +33,8 @@ function Unsplash(props) {
         cacheStorageSave(
           'Unsplash-imageInfoBlock',
           imageInfoBlock,
-          now,
-          addMinutesToDate(now, timeLimit),
+          nowTime,
+          addMinutesToDate(nowTime, timeLimit),
         );
       }
       setImageUrl(imageInfoBlock.src);
