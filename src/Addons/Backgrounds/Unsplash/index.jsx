@@ -1,4 +1,4 @@
-import { useEffect, useState, cloneElement } from 'react';
+import { useEffect, useState, cloneElement, Children } from 'react';
 import {getRandomImage, imageOptimisation} from './api';
 import './index.css';
 import Credits from './Credits';
@@ -34,14 +34,19 @@ function Unsplash(props) {
     };
       fetchImageInfoBlock();
       
-  }, [])
+  }, []);
+
   return(
       <div
       className="fullscreen"
       style={{ backgroundImage: imageUrl ? `url(${imageUrl}?${params})` : undefined, width: props.width, height: props.height }}
       >
           
-          {cloneElement(props.children, { height: props.height, width: props.width })}
+          {
+            Children.map(props.children, child => {
+              return cloneElement(child, { height: props.height, width: props.width }, null)
+            })
+          }
           <Credits credits={creditsDetails}/>
       </div>
   );

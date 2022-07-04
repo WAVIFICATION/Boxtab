@@ -1,5 +1,5 @@
 import React from 'react';
-import ClockPlugin from './Clock';
+import ClockPlugin from './Clock/Clock';
 
 function Widgets(props) {
     if (props.type === 'AnalogClock') {

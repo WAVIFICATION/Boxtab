@@ -33,20 +33,22 @@ function Grid(props) {
   }
 
   return (
-    <ReactGridLayout
-      className="layout"
-      layout={layout}
-      cols={cols}
-      rowHeight={rowHeight}
-      onLayoutChange={changedLayout}
-      compactType={null}
-      isBounded={true}
-      style={{width: '100%', height: '100%'}}
-      margin={[0,0]}
-      preventCollision={true}
-    >
-      {layout.map(generateLayout)}
-    </ReactGridLayout>
+    <div style={{height:props.height, width:props.width, position:'absolute', top:'0', left:'0'}}>
+      <ReactGridLayout
+        className="layout"
+        layout={layout}
+        cols={cols}
+        rowHeight={rowHeight}
+        onLayoutChange={changedLayout}
+        compactType={null}
+        isBounded={true}
+        style={{width: '100%', height: '100%'}}
+        margin={[0,0]}
+        preventCollision={true}
+      >
+        {layout.map(generateLayout)}
+      </ReactGridLayout>
+    </div>
   );
 }
 
