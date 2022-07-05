@@ -1,6 +1,6 @@
 import { useEffect, useState, cloneElement, Children } from 'react';
 import { cacheStorageSave, cacheStorageRead } from 'utils/cache';
-import { now, addMinutesToDate } from '../../../utils/datetime';
+import { now, addMinutesToDate } from 'utils/datetime';
 import { getRandomImage } from './api';
 import { imageOptimisation } from 'utils/image';
 import './index.css';

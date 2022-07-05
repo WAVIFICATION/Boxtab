@@ -6,12 +6,12 @@ import { IconButton } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import { default as ClockMenu } from './clock/menu';
 import Paper from '@mui/material/Paper';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import InputLabel from '@mui/material/InputLabel';
+import { useEffect } from 'react';
 
 function GeneralWidgetsMenu(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [settings, setSettings] = React.useState({});
+
   const open = Boolean(anchorEl);
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
@@ -19,6 +19,11 @@ function GeneralWidgetsMenu(props) {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  useEffect(() => {
+    props.generalSettingsOutro(settings);
+  }, [settings]);
+
   const buttonStyle = {
     position: 'absolute',
     right: '0.95rem',
@@ -54,7 +59,11 @@ function GeneralWidgetsMenu(props) {
           <MenuItem onClick={handleClose}>Logout</MenuItem>
           <MenuItem>
             {props.widgetType == 'AnalogClock' && (
-              <ClockMenu width={props.width} height={props.height} />
+              <ClockMenu
+                width={props.width}
+                height={props.height}
+                settingsOutro={setSettings}
+              />
             )}
           </MenuItem>
         </Menu>

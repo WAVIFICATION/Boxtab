@@ -4,7 +4,11 @@ import ClockPlugin from './analogClock';
 function Clock(props) {
   return (
     <div>
-      <ClockPlugin width={props.width} height={props.height} />
+      <ClockPlugin
+        width={props.width}
+        height={props.height}
+        settings={props.settings}
+      />
     </div>
   );
 }
