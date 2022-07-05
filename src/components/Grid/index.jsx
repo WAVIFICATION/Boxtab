@@ -20,7 +20,7 @@ const Grid = forwardRef((props, ref) => {
   const rowHeight = 30;
   const removeStyle = {
     position: 'absolute',
-    right: '2px',
+    right: '0.25rem',
     top: 0,
   };
 
@@ -53,6 +53,7 @@ const Grid = forwardRef((props, ref) => {
           height={layout.h * rowHeight}
           width={(layout.w * props.width) / cols}
           type="AnalogClock"
+          editVisible={enableEdit}
         />
         {enableEdit && (
           <IconButton
@@ -75,7 +76,7 @@ const Grid = forwardRef((props, ref) => {
           i: nanoid(),
           x: cols / 2,
           y: props.height / (rowHeight * 2),
-          h: props.height / (rowHeight * 25),
+          h: props.height / (rowHeight * 20),
           w: cols / 25,
         }),
       );
