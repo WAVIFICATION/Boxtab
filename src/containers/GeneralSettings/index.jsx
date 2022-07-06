@@ -29,7 +29,6 @@ export default function GeneralSettings(props) {
     // boxShadow: 24,
     p: 4,
   };
-  console.log(ListOfwidgets);
 
   return (
     <div>

@@ -44,7 +44,6 @@ const Grid = forwardRef((props, ref) => {
   } // save widgetList to local storage if it gets updated
 
   function changedLayout(layout) {
-    console.log('changed');
     setLayout(layout);
     cacheStorageSave('layout', JSON.stringify(layout));
   }
@@ -87,7 +86,6 @@ const Grid = forwardRef((props, ref) => {
           w: cols / 10,
         }),
       );
-      // console.log(params)
       const updatedWidgetList = widgetList.concat({
         i: id,
         type: params,
