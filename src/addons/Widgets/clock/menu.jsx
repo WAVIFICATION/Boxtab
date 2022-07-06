@@ -21,8 +21,6 @@ function Menu(props) {
   listOfTimezones.push('default');
 
   useEffect(() => {
-    console.log('timeZone changed in clockmenu');
-    console.log(timeZone);
     props.settingsOutro({ timeZone: timeZone });
   }, [timeZone]);
 
