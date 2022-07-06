@@ -8,15 +8,17 @@ import TextField from '@mui/material/TextField';
 import { useEffect } from 'react';
 
 function Menu(props) {
+  const defaultTimeZone =
+    'timeZone' in props.settingsIntro
+      ? props.settingsIntro.timeZone
+      : 'default';
   const listOfTimezones = moment.tz.names();
-  listOfTimezones.push('default');
-  const [timeZone, setTimeZone] = React.useState('default');
-
+  const [timeZone, setTimeZone] = React.useState(defaultTimeZone);
   const handleChange = event => {
-    // console.log(event)
     setTimeZone(event.target.textContent);
   };
-  // console.log(listOfTimezones);
+
+  listOfTimezones.push('default');
 
   useEffect(() => {
     console.log('timeZone changed in clockmenu');
@@ -31,7 +33,7 @@ function Menu(props) {
         style={{ width: '15rem' }}
         options={listOfTimezones}
         getOptionLabel={option => option}
-        defaultValue={'default'}
+        defaultValue={defaultTimeZone}
         onChange={handleChange}
         renderInput={params => (
           <TextField {...params} label="Timezone" margin="normal" />

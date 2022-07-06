@@ -24,6 +24,10 @@ function GeneralWidgetsMenu(props) {
     props.generalSettingsOutro(settings);
   }, [settings]);
 
+  useEffect(() => {
+    setSettings(props.generalSettingsIntro);
+  }, []);
+
   const buttonStyle = {
     position: 'absolute',
     right: '0.95rem',
@@ -63,6 +67,7 @@ function GeneralWidgetsMenu(props) {
                 width={props.width}
                 height={props.height}
                 settingsOutro={setSettings}
+                settingsIntro={settings}
               />
             )}
           </MenuItem>

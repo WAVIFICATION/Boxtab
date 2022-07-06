@@ -11,6 +11,7 @@ import { IconButton } from '@mui/material';
 import _ from 'lodash';
 import EditIcon from '@mui/icons-material/Edit';
 import Button from '@mui/material/Button';
+import TimerProvider from 'utils/timer';
 
 const ReactGridLayout = WidthProvider(RGL);
 
@@ -41,6 +42,7 @@ const Grid = forwardRef((props, ref) => {
   }, []);
 
   function changedLayout(layout) {
+    console.log('changed');
     setLayout(layout);
     cacheStorageSave('layout', JSON.stringify(layout));
   }
@@ -48,13 +50,15 @@ const Grid = forwardRef((props, ref) => {
   function generateLayout(layout) {
     return (
       <div key={layout.i} style={{ overflow: 'hidden' }}>
-        <Enclosure
-          name={layout.i}
-          height={layout.h * rowHeight}
-          width={(layout.w * props.width) / cols}
-          type="AnalogClock"
-          editVisible={enableEdit}
-        />
+        <TimerProvider>
+          <Enclosure
+            name={layout.i}
+            height={layout.h * rowHeight}
+            width={(layout.w * props.width) / cols}
+            type="AnalogClock"
+            editVisible={enableEdit}
+          />
+        </TimerProvider>
         {enableEdit && (
           <IconButton
             color="primary"

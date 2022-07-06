@@ -3,9 +3,12 @@ import Clock from 'react-clock';
 import 'react-clock/dist/Clock.css';
 import { addMinutesToDate } from 'utils/datetime';
 import moment from 'moment-timezone';
+import { useTimer } from 'utils/timer';
 
 function ClockPlugin(props) {
   let tzDiff = 0;
+  const { timer } = useTimer();
+
   if (props.settings.timeZone) {
     var now = moment.utc();
     const currentNow = moment.tz.guess();
@@ -20,15 +23,8 @@ function ClockPlugin(props) {
   const [value, setValue] = useState(addMinutesToDate(new Date(), tzDiff));
 
   useEffect(() => {
-    const interval = setInterval(
-      () => setValue(addMinutesToDate(new Date(), tzDiff)),
-      1000,
-    );
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, [tzDiff]);
+    setValue(addMinutesToDate(new Date(), tzDiff));
+  }, [timer, props.settings]);
 
   return (
     <div>

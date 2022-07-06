@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import ClockPlugin from './analogClock';
+import ClockPlugin from './AnalogClock';
 
 function Clock(props) {
   return (
