@@ -26,20 +26,22 @@ const Grid = forwardRef((props, ref) => {
   };
 
   const [layout, setLayout] = useState([]);
+  const [widgetList, setWidgetList] = useState([]);
   const [enableEdit, setEnableEdit] = useState(false);
 
   useEffect(() => {
     const existingLayout = cacheStorageRead('layout');
-    setLayout(
-      existingLayout
-        ? JSON.parse(existingLayout.data)
-        : [
-            { i: 'a', x: 0, y: 0, w: 1, h: 2 },
-            { i: 'b', x: 1, y: 0, w: 3, h: 2 },
-            { i: 'c', x: 4, y: 0, w: 1, h: 2 },
-          ],
-    );
+    const existingWidgetList = cacheStorageRead('widgetList');
+    setLayout(existingLayout ? JSON.parse(existingLayout.data) : []);
+
+    setWidgetList(
+      existingWidgetList ? JSON.parse(existingWidgetList.data) : [],
+    ); // set widget list on initial load
   }, []);
+
+  function updateWidgetListCache(widgetListCache) {
+    cacheStorageSave('widgetList', JSON.stringify(widgetListCache));
+  } // save widgetList to local storage if it gets updated
 
   function changedLayout(layout) {
     console.log('changed');
@@ -55,7 +57,7 @@ const Grid = forwardRef((props, ref) => {
             name={layout.i}
             height={layout.h * rowHeight}
             width={(layout.w * props.width) / cols}
-            type="AnalogClock"
+            type={_.find(widgetList, { i: layout.i }).type}
             editVisible={enableEdit}
           />
         </TimerProvider>
@@ -75,20 +77,32 @@ const Grid = forwardRef((props, ref) => {
 
   useImperativeHandle(ref, () => ({
     addWidgets(params) {
+      const id = nanoid();
       setLayout(
         layout.concat({
-          i: nanoid(),
+          i: id,
           x: cols / 2,
           y: props.height / (rowHeight * 2),
-          h: props.height / (rowHeight * 20),
-          w: cols / 25,
+          h: props.height / (rowHeight * 10),
+          w: cols / 10,
         }),
       );
+      // console.log(params)
+      const updatedWidgetList = widgetList.concat({
+        i: id,
+        type: params,
+      });
+      setWidgetList(updatedWidgetList);
+      updateWidgetListCache(updatedWidgetList);
     },
   }));
 
   function removeWidgets(key) {
-    setLayout(_.reject(layout, { i: key }));
+    setLayout(_.reject(layout, { i: key })); // removing from layout
+
+    const updatedWidgetList = _.reject(widgetList, { i: key });
+    setWidgetList(updatedWidgetList); //removing from widget list
+    updateWidgetListCache(updatedWidgetList);
   }
 
   return (
@@ -119,14 +133,15 @@ const Grid = forwardRef((props, ref) => {
           cols={cols}
           rowHeight={rowHeight}
           onLayoutChange={changedLayout}
-          allowOverlap={true}
           compactType={null}
           isBounded={true}
           style={{ width: '100%', height: '100%' }}
           margin={[0, 0]}
-          // preventCollision={true}
+          preventCollision={true}
           isDraggable={enableEdit}
           isResizable={enableEdit}
+          useCSSTransforms={true}
+          // allowOverlap={true}
         >
           {layout.map(generateLayout)}
         </ReactGridLayout>

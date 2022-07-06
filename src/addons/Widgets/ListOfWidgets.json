@@ -3,6 +3,10 @@
     {
       "DisplayName": "Analog Clock",
       "WidgetName": "AnalogClock"
+    },
+    {
+      "DisplayName": "Digital Clock",
+      "WidgetName": "DigitalClock"
     }
   ]
 }
