@@ -11,6 +11,7 @@ import { IconButton } from '@mui/material';
 import _ from 'lodash';
 import EditIcon from '@mui/icons-material/Edit';
 import Button from '@mui/material/Button';
+import TimerProvider from 'utils/timer';
 
 const ReactGridLayout = WidthProvider(RGL);
 
@@ -20,7 +21,7 @@ const Grid = forwardRef((props, ref) => {
   const rowHeight = 30;
   const removeStyle = {
     position: 'absolute',
-    right: '2px',
+    right: '0.25rem',
     top: 0,
   };
 
@@ -41,6 +42,7 @@ const Grid = forwardRef((props, ref) => {
   }, []);
 
   function changedLayout(layout) {
+    console.log('changed');
     setLayout(layout);
     cacheStorageSave('layout', JSON.stringify(layout));
   }
@@ -48,12 +50,15 @@ const Grid = forwardRef((props, ref) => {
   function generateLayout(layout) {
     return (
       <div key={layout.i} style={{ overflow: 'hidden' }}>
-        <Enclosure
-          name={layout.i}
-          height={layout.h * rowHeight}
-          width={(layout.w * props.width) / cols}
-          type="AnalogClock"
-        />
+        <TimerProvider>
+          <Enclosure
+            name={layout.i}
+            height={layout.h * rowHeight}
+            width={(layout.w * props.width) / cols}
+            type="AnalogClock"
+            editVisible={enableEdit}
+          />
+        </TimerProvider>
         {enableEdit && (
           <IconButton
             color="primary"
@@ -75,7 +80,7 @@ const Grid = forwardRef((props, ref) => {
           i: nanoid(),
           x: cols / 2,
           y: props.height / (rowHeight * 2),
-          h: props.height / (rowHeight * 25),
+          h: props.height / (rowHeight * 20),
           w: cols / 25,
         }),
       );
@@ -119,7 +124,7 @@ const Grid = forwardRef((props, ref) => {
           isBounded={true}
           style={{ width: '100%', height: '100%' }}
           margin={[0, 0]}
-          preventCollision={true}
+          // preventCollision={true}
           isDraggable={enableEdit}
           isResizable={enableEdit}
         >

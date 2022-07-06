@@ -74,7 +74,7 @@ export default function GeneralSettings(props) {
             <Collapse in={openWidgets} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
                 {ListOfwidgets.list.map(widgets =>
-                  WidgetLister(widgets, props.addWidgets),
+                  WidgetLister(widgets, props.addWidgets, handleClose),
                 )}
               </List>
             </Collapse>
@@ -85,13 +85,16 @@ export default function GeneralSettings(props) {
   );
 }
 
-function WidgetLister(widgetInfo, addWidgets) {
+function WidgetLister(widgetInfo, addWidgets, handleClose) {
   return (
     <ListItemButton sx={{ pl: 4 }} key={widgetInfo.WidgetName}>
       <ListItemIcon>{/* <InboxIcon /> */}</ListItemIcon>
       <ListItemText
         primary={widgetInfo.DisplayName}
-        onClick={() => addWidgets(widgetInfo.WidgetName)}
+        onClick={() => {
+          addWidgets(widgetInfo.WidgetName);
+          handleClose();
+        }}
       />
     </ListItemButton>
   );
