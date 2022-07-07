@@ -6,7 +6,7 @@ import { imageOptimisation } from 'utils/image';
 import './index.css';
 import Credits from './credits';
 import { getPalette } from './paletteFinder';
-import { createTheme } from '@mui/material/styles';
+import { customPalette } from 'components/Util/initialPalatte';
 
 function Unsplash(props) {
   const params = new URLSearchParams();
@@ -21,6 +21,7 @@ function Unsplash(props) {
     const fetchImageInfoBlock = async () => {
       const cachedimageInfoBlock = cacheStorageRead('Unsplash-imageInfoBlock');
       let imageInfoBlock = {};
+      let imagePalette = {};
       const nowTime = now();
 
       if (
@@ -29,6 +30,8 @@ function Unsplash(props) {
           nowTime
       ) {
         imageInfoBlock = cachedimageInfoBlock.data;
+        imagePalette = cacheStorageRead('Unsplash-imagePalette').data; // read saved palette for the image
+        props.setThemeUpdate(customPalette(imagePalette));
       } else {
         imageInfoBlock = await getRandomImage();
         imageInfoBlock = imageInfoBlock[0];
@@ -38,6 +41,17 @@ function Unsplash(props) {
           nowTime,
           addMinutesToDate(nowTime, timeLimit),
         );
+
+        getPalette(imageInfoBlock.src + '/?' + params).then(extracts => {
+          imagePalette = extracts; // setting value on new image
+          props.setThemeUpdate(customPalette(imagePalette));
+          cacheStorageSave(
+            'Unsplash-imagePalette',
+            extracts,
+            nowTime,
+            addMinutesToDate(nowTime, timeLimit),
+          );
+        });
       }
 
       setImageUrl(imageInfoBlock.src);
@@ -47,26 +61,6 @@ function Unsplash(props) {
   }, []);
 
   useEffect(() => {
-    getPalette(imageUrl + '/?' + params).then(value => {
-      console.log(value);
-      props.setThemeUpdate(
-        createTheme({
-          palette: {
-            mode: 'dark',
-            // primary: {
-            //   main: '#0052cc',
-            // },
-            // secondary: {
-            //   main: '#edf2ff',
-            // },
-            text: {
-              primary: value[2],
-              secondary: value[2],
-            },
-          },
-        }),
-      );
-    });
     // const { colors } = useImageColor(imageUrl, { cors: true, colors: 5 })
     // console.log(colors)
   }, [imageUrl]);
