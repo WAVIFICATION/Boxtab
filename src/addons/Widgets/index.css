@@ -1,0 +1,6 @@
+.foreground {
+    filter: 'none';
+    z-index: 12;
+    position: 'absolute';
+    text-align: center;
+  }

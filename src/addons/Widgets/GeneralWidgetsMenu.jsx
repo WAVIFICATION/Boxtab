@@ -4,12 +4,13 @@ import MenuItem from '@mui/material/MenuItem';
 import { IconButton } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import { default as ClockMenu } from './clock/menu';
+import { default as TextBoxMenu } from './TextBox/menu';
 import Paper from '@mui/material/Paper';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 function GeneralWidgetsMenu(props) {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [settings, setSettings] = React.useState({});
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [settings, setSettings] = useState({});
 
   const open = Boolean(anchorEl);
   const handleClick = event => {
@@ -33,6 +34,7 @@ function GeneralWidgetsMenu(props) {
     top: 0,
     zIndex: 12,
   };
+  // console.log(props.widgetType)
 
   return (
     <div style={buttonStyle}>
@@ -61,8 +63,17 @@ function GeneralWidgetsMenu(props) {
           <MenuItem onClick={handleClose}>My account</MenuItem>
           <MenuItem onClick={handleClose}>Logout</MenuItem> */}
           <MenuItem>
-            {props.widgetType == 'AnalogClock' && (
+            {(props.widgetType === 'AnalogClock' ||
+              props.widgetType === 'DigitalClock') && (
               <ClockMenu
+                width={props.width}
+                height={props.height}
+                settingsOutro={setSettings}
+                settingsIntro={settings}
+              />
+            )}
+            {props.widgetType === 'TextBox' && (
+              <TextBoxMenu
                 width={props.width}
                 height={props.height}
                 settingsOutro={setSettings}

@@ -6,6 +6,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import moment from 'moment-timezone';
 import TextField from '@mui/material/TextField';
 import { useEffect } from 'react';
+import stopPropagation from 'utils/stopPropogation';
 
 function Menu(props) {
   const defaultTimeZone =
@@ -31,8 +32,10 @@ function Menu(props) {
         style={{ width: '15rem' }}
         options={listOfTimezones}
         getOptionLabel={option => option}
-        defaultValue={defaultTimeZone}
+        // defaultValue={defaultTimeZone}
+        value={defaultTimeZone}
         onChange={handleChange}
+        onKeyDown={stopPropagation}
         renderInput={params => (
           <TextField {...params} label="Timezone" margin="normal" />
         )}
