@@ -5,6 +5,8 @@ import { getRandomImage } from './api';
 import { imageOptimisation } from 'utils/image';
 import './index.css';
 import Credits from './credits';
+import { getPalette } from './paletteFinder';
+import { createTheme } from '@mui/material/styles';
 
 function Unsplash(props) {
   const params = new URLSearchParams();
@@ -37,11 +39,37 @@ function Unsplash(props) {
           addMinutesToDate(nowTime, timeLimit),
         );
       }
+
       setImageUrl(imageInfoBlock.src);
       setcreditsDetails(imageInfoBlock.credit);
     };
     fetchImageInfoBlock();
   }, []);
+
+  useEffect(() => {
+    getPalette(imageUrl + '/?' + params).then(value => {
+      console.log(value);
+      props.setThemeUpdate(
+        createTheme({
+          palette: {
+            mode: 'dark',
+            // primary: {
+            //   main: '#0052cc',
+            // },
+            // secondary: {
+            //   main: '#edf2ff',
+            // },
+            text: {
+              primary: value[2],
+              secondary: value[2],
+            },
+          },
+        }),
+      );
+    });
+    // const { colors } = useImageColor(imageUrl, { cors: true, colors: 5 })
+    // console.log(colors)
+  }, [imageUrl]);
 
   return (
     <div
