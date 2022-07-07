@@ -7,6 +7,10 @@
     {
       "DisplayName": "Digital Clock",
       "WidgetName": "DigitalClock"
+    },
+    {
+      "DisplayName": "Text Box",
+      "WidgetName": "TextBox"
     }
   ]
 }

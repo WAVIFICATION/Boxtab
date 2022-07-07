@@ -1,4 +1,4 @@
-import moment from 'moment-timezone';
+import momentTz from 'moment-timezone';
 
 export function now() {
   return new Date();
@@ -9,10 +9,10 @@ export function addMinutesToDate(date, minutes) {
 }
 
 export function timeZoneDelta(timeZone) {
-  var now = moment.utc();
-  const currentNow = moment.tz.guess();
-  const currentTz = moment.tz.zone(currentNow);
-  const settingsTz = moment.tz.zone(
+  var now = momentTz.utc();
+  const currentNow = momentTz.tz.guess();
+  const currentTz = momentTz.tz.zone(currentNow);
+  const settingsTz = momentTz.tz.zone(
     timeZone == 'default' ? currentNow : timeZone,
   );
   return settingsTz.utcOffset(now) - currentTz.utcOffset(now);

@@ -12,6 +12,7 @@ import Collapse from '@mui/material/Collapse';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import ListOfwidgets from 'addons/Widgets/ListOfWidgets';
+import { Card } from '@mui/material';
 
 export default function GeneralSettings(props) {
   const [open, setOpen] = useState(false);
@@ -49,15 +50,12 @@ export default function GeneralSettings(props) {
         // aria-labelledby="modal-modal-title"
         // aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Card sx={style}>
           <Typography id="Title" variant="h3" component="div">
             Boxtab
           </Typography>
           <Typography id="Description" variant="h6" component="div">
             Settings
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
           </Typography>
 
           <List>
@@ -78,7 +76,7 @@ export default function GeneralSettings(props) {
               </List>
             </Collapse>
           </List>
-        </Box>
+        </Card>
       </Modal>
     </div>
   );

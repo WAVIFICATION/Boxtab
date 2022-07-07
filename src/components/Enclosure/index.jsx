@@ -1,9 +1,9 @@
-import PropTypes from 'prop-types'; // ES6
-// import React from 'react';
 import Widgets from 'addons/Widgets';
 import { useState, useEffect } from 'react';
 import GeneralWidgetsMenu from 'addons/Widgets/GeneralWidgetsMenu';
 import { cacheStorageSave, cacheStorageRead } from 'utils/cache';
+import BlurBackground from 'components/Util/bluredBackground';
+import Card from '@mui/material/Card';
 
 function Enclosure(props) {
   const [widgetSettingsData, setWidgetSettingsData] = useState({});
@@ -29,20 +29,26 @@ function Enclosure(props) {
 
   return (
     <div style={{ display: 'inline-block' }}>
-      {props.editVisible && (
-        <GeneralWidgetsMenu
-          name={props.name}
-          widgetType={props.type}
-          generalSettingsIntro={widgetSettingsData}
-          generalSettingsOutro={setWidgetSettingsData}
+      <Card
+        sx={{ width: props.width, height: props.height }}
+        style={{ backgroundColor: 'transparent', borderRadius: '0' }}
+      >
+        <BlurBackground width={props.width} height={props.height} />
+        {props.editVisible && (
+          <GeneralWidgetsMenu
+            name={props.name}
+            widgetType={props.type}
+            generalSettingsIntro={widgetSettingsData}
+            generalSettingsOutro={setWidgetSettingsData}
+          />
+        )}
+        <Widgets
+          width={props.width}
+          height={props.height}
+          type={props.type}
+          settings={widgetSettingsData}
         />
-      )}
-      <Widgets
-        width={props.width}
-        height={props.height}
-        type={props.type}
-        settings={widgetSettingsData}
-      />
+      </Card>
     </div>
   );
 }
