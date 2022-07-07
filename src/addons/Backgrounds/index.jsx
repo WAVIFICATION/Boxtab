@@ -4,7 +4,11 @@ import cloneElement from 'react';
 function Background(props) {
   if (props.model === 'Unsplash') {
     return (
-      <Unsplash height={props.height} width={props.width}>
+      <Unsplash
+        height={props.height}
+        width={props.width}
+        setThemeUpdate={props.setThemeUpdate}
+      >
         {props.children}
       </Unsplash>
     );
