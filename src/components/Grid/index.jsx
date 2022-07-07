@@ -18,7 +18,7 @@ const ReactGridLayout = WidthProvider(RGL);
 const Grid = forwardRef((props, ref) => {
   const heightRatio = 50;
   const cols = 120;
-  const rowHeight = 30;
+  const rowHeight = props.height / heightRatio;
   const removeStyle = {
     position: 'absolute',
     right: '0.25rem',

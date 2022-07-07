@@ -3,24 +3,19 @@ import Grid from 'components/Grid';
 import Background from './addons/Backgrounds';
 import useWindowDimensions from 'utils/windowDimension';
 import GeneralSettings from './containers/GeneralSettings';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { useRef, useState, useEffect } from 'react';
+import { ThemeProvider } from '@mui/material/styles';
+import { useRef, useState } from 'react';
+import { initialPalette } from 'components/Util/initialPalatte';
 
 function App() {
   const { height, width } = useWindowDimensions();
   const addWidgetsRef = useRef();
-  const [themeUpdate, setThemeUpdate] = useState(
-    createTheme({
-      palette: {
-        mode: 'light',
-      },
-    }),
-  );
+  const [themeUpdate, setThemeUpdate] = useState(initialPalette());
 
-  useEffect(() => {
-    console.log(themeUpdate);
-    // console.log(theme)
-  }, [themeUpdate]);
+  // useEffect(() => {
+  //   console.log(themeUpdate);
+  //   // console.log(theme)
+  // }, [themeUpdate]);
 
   return (
     <>
