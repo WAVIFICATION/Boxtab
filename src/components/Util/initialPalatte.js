@@ -8,6 +8,14 @@ export function initialPalette() {
 }
 
 export function customPalette(imagePalette) {
+  console.log(imagePalette);
+  if (!imagePalette)
+    return createTheme({
+      palette: {
+        mode: 'dark',
+      },
+    });
+
   return createTheme({
     palette: {
       mode: 'dark',

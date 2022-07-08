@@ -29,9 +29,9 @@ const Grid = forwardRef((props, ref) => {
   const [widgetList, setWidgetList] = useState([]);
   const [enableEdit, setEnableEdit] = useState(false);
 
-  useEffect(() => {
-    const existingLayout = cacheStorageRead('layout');
-    const existingWidgetList = cacheStorageRead('widgetList');
+  useEffect(async () => {
+    const existingLayout = await cacheStorageRead('layout');
+    const existingWidgetList = await cacheStorageRead('widgetList');
     setLayout(existingLayout ? JSON.parse(existingLayout.data) : []);
 
     setWidgetList(
@@ -39,13 +39,13 @@ const Grid = forwardRef((props, ref) => {
     ); // set widget list on initial load
   }, []);
 
-  function updateWidgetListCache(widgetListCache) {
-    cacheStorageSave('widgetList', JSON.stringify(widgetListCache));
+  async function updateWidgetListCache(widgetListCache) {
+    await cacheStorageSave('widgetList', JSON.stringify(widgetListCache));
   } // save widgetList to local storage if it gets updated
 
-  function changedLayout(layout) {
+  async function changedLayout(layout) {
     setLayout(layout);
-    cacheStorageSave('layout', JSON.stringify(layout));
+    await cacheStorageSave('layout', JSON.stringify(layout));
   }
 
   function generateLayout(layout) {
@@ -65,7 +65,7 @@ const Grid = forwardRef((props, ref) => {
             color="primary"
             component="span"
             style={removeStyle}
-            onClick={() => removeWidgets(layout.i)}
+            onClick={async () => await removeWidgets(layout.i)}
           >
             <CancelIcon />
           </IconButton>
@@ -75,7 +75,7 @@ const Grid = forwardRef((props, ref) => {
   }
 
   useImperativeHandle(ref, () => ({
-    addWidgets(params) {
+    async addWidgets(params) {
       const id = nanoid();
       setLayout(
         layout.concat({
@@ -91,16 +91,16 @@ const Grid = forwardRef((props, ref) => {
         type: params,
       });
       setWidgetList(updatedWidgetList);
-      updateWidgetListCache(updatedWidgetList);
+      await updateWidgetListCache(updatedWidgetList);
     },
   }));
 
-  function removeWidgets(key) {
+  async function removeWidgets(key) {
     setLayout(_.reject(layout, { i: key })); // removing from layout
 
     const updatedWidgetList = _.reject(widgetList, { i: key });
     setWidgetList(updatedWidgetList); //removing from widget list
-    updateWidgetListCache(updatedWidgetList);
+    await updateWidgetListCache(updatedWidgetList);
   }
 
   return (
