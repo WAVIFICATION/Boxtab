@@ -26,17 +26,19 @@ const Grid = forwardRef((props, ref) => {
   };
 
   const [layout, setLayout] = useState([]);
-  const [widgetList, setWidgetList] = useState([]);
+  const [widgetList, setWidgetList] = useState({});
   const [enableEdit, setEnableEdit] = useState(false);
 
-  useEffect(async () => {
-    const existingLayout = await cacheStorageRead('layout');
-    const existingWidgetList = await cacheStorageRead('widgetList');
-    setLayout(existingLayout ? JSON.parse(existingLayout.data) : []);
+  useEffect(() => {
+    (async () => {
+      const existingLayout = await cacheStorageRead('layout');
+      const existingWidgetList = await cacheStorageRead('widgetList');
+      setLayout(existingLayout ? JSON.parse(existingLayout.data) : []);
 
-    setWidgetList(
-      existingWidgetList ? JSON.parse(existingWidgetList.data) : [],
-    ); // set widget list on initial load
+      setWidgetList(
+        existingWidgetList ? JSON.parse(existingWidgetList.data) : [],
+      ); // set widget list on initial load
+    })();
   }, []);
 
   async function updateWidgetListCache(widgetListCache) {
@@ -49,6 +51,7 @@ const Grid = forwardRef((props, ref) => {
   }
 
   function generateLayout(layout) {
+    const widgetlister = _.find(widgetList, { i: layout.i });
     return (
       <div key={layout.i} style={{ overflow: 'hidden' }}>
         <TimerProvider>
@@ -56,7 +59,7 @@ const Grid = forwardRef((props, ref) => {
             name={layout.i}
             height={layout.h * rowHeight}
             width={(layout.w * props.width) / cols}
-            type={_.find(widgetList, { i: layout.i }).type}
+            type={widgetlister ? widgetlister.type : null}
             editVisible={enableEdit}
           />
         </TimerProvider>

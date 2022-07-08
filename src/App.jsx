@@ -12,11 +12,6 @@ function App() {
   const addWidgetsRef = useRef();
   const [themeUpdate, setThemeUpdate] = useState(initialPalette());
 
-  // useEffect(() => {
-  //   console.log(themeUpdate);
-  //   // console.log(theme)
-  // }, [themeUpdate]);
-
   return (
     <>
       <ThemeProvider theme={themeUpdate}>
