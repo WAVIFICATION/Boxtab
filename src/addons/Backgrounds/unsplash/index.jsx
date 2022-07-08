@@ -19,7 +19,9 @@ function Unsplash(props) {
 
   useEffect(() => {
     const fetchImageInfoBlock = async () => {
-      const cachedimageInfoBlock = cacheStorageRead('Unsplash-imageInfoBlock');
+      const cachedimageInfoBlock = await cacheStorageRead(
+        'Unsplash-imageInfoBlock',
+      );
       let imageInfoBlock = {};
       let imagePalette = {};
       const nowTime = now();
@@ -30,22 +32,22 @@ function Unsplash(props) {
           nowTime
       ) {
         imageInfoBlock = cachedimageInfoBlock.data;
-        imagePalette = cacheStorageRead('Unsplash-imagePalette').data; // read saved palette for the image
+        imagePalette = await cacheStorageRead('Unsplash-imagePalette').data; // read saved palette for the image
         props.setThemeUpdate(customPalette(imagePalette));
       } else {
         imageInfoBlock = await getRandomImage();
         imageInfoBlock = imageInfoBlock[0];
-        cacheStorageSave(
+        await cacheStorageSave(
           'Unsplash-imageInfoBlock',
           imageInfoBlock,
           nowTime,
           addMinutesToDate(nowTime, timeLimit),
         );
 
-        getPalette(imageInfoBlock.src + '/?' + params).then(extracts => {
+        getPalette(imageInfoBlock.src + '/?' + params).then(async extracts => {
           imagePalette = extracts; // setting value on new image
           props.setThemeUpdate(customPalette(imagePalette));
-          cacheStorageSave(
+          await cacheStorageSave(
             'Unsplash-imagePalette',
             extracts,
             nowTime,

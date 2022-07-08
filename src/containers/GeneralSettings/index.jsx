@@ -88,8 +88,8 @@ function WidgetLister(widgetInfo, addWidgets, handleClose) {
       <ListItemIcon>{/* <InboxIcon /> */}</ListItemIcon>
       <ListItemText
         primary={widgetInfo.DisplayName}
-        onClick={() => {
-          addWidgets(widgetInfo.WidgetName);
+        onClick={async () => {
+          await addWidgets(widgetInfo.WidgetName);
           handleClose();
         }}
       />
