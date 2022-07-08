@@ -8,26 +8,26 @@ import Card from '@mui/material/Card';
 function Enclosure(props) {
   const [widgetSettingsData, setWidgetSettingsData] = useState({});
 
-  useEffect(async () => {
-    console.log(widgetSettingsData);
-    if (Object.keys(widgetSettingsData).length != 0) {
-      console.log('inside', widgetSettingsData);
-      await cacheStorageSave(
+  useEffect(() => {
+    if (Object.keys(widgetSettingsData).length !== 0) {
+      cacheStorageSave(
         'widgetSettings-' + props.name,
         JSON.stringify(widgetSettingsData),
       );
     }
   }, [widgetSettingsData]);
 
-  useEffect(async () => {
-    const existingWidgetSettingsData = await cacheStorageRead(
-      'widgetSettings-' + props.name,
-    );
-    setWidgetSettingsData(
-      existingWidgetSettingsData
-        ? JSON.parse(existingWidgetSettingsData.data)
-        : {},
-    ); //TODO: DEFAULT SETTINGS
+  useEffect(() => {
+    (async () => {
+      const existingWidgetSettingsData = await cacheStorageRead(
+        'widgetSettings-' + props.name,
+      );
+      setWidgetSettingsData(
+        existingWidgetSettingsData
+          ? JSON.parse(existingWidgetSettingsData.data)
+          : {},
+      ); //TODO: DEFAULT SETTINGS
+    })();
   }, []);
 
   return (

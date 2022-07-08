@@ -1,5 +1,35 @@
-const brow = typeof browser === 'undefined' ? chrome : browser;
-export async function cacheStorageSave(
+async function syncStorageSave(
+  key,
+  data,
+  createdOn = null,
+  updateBy = null,
+  updatedOn = null,
+) {
+  const browserType = typeof browser === 'undefined' ? chrome : browser;
+  const dataStruct = {
+    data: data,
+    createdOn: createdOn,
+    updatedOn: updatedOn,
+    updateBy: updateBy,
+  };
+  key = 'Boxtab-' + key;
+  return await browserType.storage.sync.set({
+    [key]: JSON.stringify(dataStruct),
+  });
+}
+
+async function syncStorageRead(key) {
+  const browserType = typeof browser === 'undefined' ? chrome : browser;
+  let existingData = await browserType.storage.sync
+    .get('Boxtab-' + key)
+    .then(data => {
+      if (!('Boxtab-' + key in data)) return null;
+      else return data['Boxtab-' + key];
+    });
+  return await (existingData ? JSON.parse(existingData) : null);
+}
+
+async function localStorageSave(
   key,
   data,
   createdOn = null,
@@ -12,17 +42,15 @@ export async function cacheStorageSave(
     updatedOn: updatedOn,
     updateBy: updateBy,
   };
-  key = 'Boxtab-' + key;
-  brow.storage.sync.set({ [key]: JSON.stringify(dataStruct) });
-  return;
+  localStorage.setItem('Boxtab-' + key, JSON.stringify(dataStruct));
 }
 
-export async function cacheStorageRead(key) {
-  let existingData = await brow.storage.sync.get('Boxtab-' + key).then(data => {
-    // console.log(data)
-    if (!('Boxtab-' + key in data)) return null;
-    else return data['Boxtab-' + key];
-  });
-  console.log(key, ':', existingData);
+async function localStorageRead(key) {
+  const existingData = localStorage.getItem('Boxtab-' + key);
   return existingData ? JSON.parse(existingData) : null;
 }
+
+export const cacheStorageRead =
+  process.env.NODE_ENV == 'development' ? localStorageRead : syncStorageRead;
+export const cacheStorageSave =
+  process.env.NODE_ENV == 'development' ? localStorageSave : syncStorageSave;
