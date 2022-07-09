@@ -50,7 +50,6 @@ async function localStorageRead(key) {
   return existingData ? JSON.parse(existingData) : null;
 }
 
-export const cacheStorageRead =
-  process.env.NODE_ENV == 'development' ? localStorageRead : syncStorageRead;
-export const cacheStorageSave =
-  process.env.NODE_ENV == 'development' ? localStorageSave : syncStorageSave;
+const isDevEnv = process.env.NODE_ENV == 'development';
+export const cacheStorageRead = isDevEnv ? localStorageRead : syncStorageRead;
+export const cacheStorageSave = isDevEnv ? localStorageSave : syncStorageSave;

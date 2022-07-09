@@ -4,12 +4,13 @@ import GeneralWidgetsMenu from 'addons/Widgets/GeneralWidgetsMenu';
 import { cacheStorageSave, cacheStorageRead } from 'utils/cache';
 import BlurBackground from 'components/Util/bluredBackground';
 import Card from '@mui/material/Card';
+import _ from 'lodash';
 
 function Enclosure(props) {
   const [widgetSettingsData, setWidgetSettingsData] = useState({});
 
   useEffect(() => {
-    if (Object.keys(widgetSettingsData).length !== 0) {
+    if (_.isEmpty(widgetSettingsData)) {
       cacheStorageSave(
         'widgetSettings-' + props.name,
         JSON.stringify(widgetSettingsData),
