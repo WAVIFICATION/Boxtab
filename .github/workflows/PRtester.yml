@@ -5,7 +5,7 @@ name: PRTester
 
 on:
   pull_request:
-    types: ["review_requested", "ready_for_review", "opened", "edited", "synchronize", "reopened"]
+    types: ["review_requested", "ready_for_review", "synchronize"]
 
 jobs:
   build:
