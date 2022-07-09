@@ -1,4 +1,7 @@
 <h1 align="center">BoxTab <img src="public/icons/favicon-32x32.png"/></h1>
+
+[![Build](https://github.com/WAVIFICATION/Boxtab/actions/workflows/BuildCheck.yml/badge.svg)](https://github.com/WAVIFICATION/Boxtab/actions/workflows/BuildCheck.yml)
+
 <h3 align="center">A newtab browser plugin with modular and re-arrangeable widgets.</h3>
 
 ***
