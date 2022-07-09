@@ -1,12 +1,12 @@
 import { useEffect, useState, cloneElement, Children } from 'react';
 import { cacheStorageSave, cacheStorageRead } from 'utils/cache';
 import { now, addMinutesToDate } from 'utils/datetime';
-import { getRandomImage } from './api';
+import { customPalette } from 'components/Util/initialPalatte';
 import { imageOptimisation } from 'utils/image';
+import { getRandomImage } from './api';
 import './index.css';
 import Credits from './credits';
 import { getPalette } from './paletteFinder';
-import { customPalette } from 'components/Util/initialPalatte';
 
 function Unsplash(props) {
   const params = new URLSearchParams();
@@ -19,9 +19,11 @@ function Unsplash(props) {
 
   useEffect(() => {
     const fetchImageInfoBlock = async () => {
-      const cachedimageInfoBlock = cacheStorageRead('Unsplash-imageInfoBlock');
+      const cachedimageInfoBlock = await cacheStorageRead(
+        'Unsplash-imageInfoBlock',
+      );
       let imageInfoBlock = {};
-      let imagePalette = {};
+      let imagePalette = [];
       const nowTime = now();
 
       if (
@@ -30,22 +32,22 @@ function Unsplash(props) {
           nowTime
       ) {
         imageInfoBlock = cachedimageInfoBlock.data;
-        imagePalette = cacheStorageRead('Unsplash-imagePalette').data; // read saved palette for the image
+        imagePalette = (await cacheStorageRead('Unsplash-imagePalette')).data; // read saved palette for the image
         props.setThemeUpdate(customPalette(imagePalette));
       } else {
         imageInfoBlock = await getRandomImage();
         imageInfoBlock = imageInfoBlock[0];
-        cacheStorageSave(
+        await cacheStorageSave(
           'Unsplash-imageInfoBlock',
           imageInfoBlock,
           nowTime,
           addMinutesToDate(nowTime, timeLimit),
         );
 
-        getPalette(imageInfoBlock.src + '/?' + params).then(extracts => {
+        getPalette(imageInfoBlock.src + '?' + params).then(async extracts => {
           imagePalette = extracts; // setting value on new image
           props.setThemeUpdate(customPalette(imagePalette));
-          cacheStorageSave(
+          await cacheStorageSave(
             'Unsplash-imagePalette',
             extracts,
             nowTime,
@@ -58,12 +60,8 @@ function Unsplash(props) {
       setcreditsDetails(imageInfoBlock.credit);
     };
     fetchImageInfoBlock();
+    return;
   }, []);
-
-  useEffect(() => {
-    // const { colors } = useImageColor(imageUrl, { cors: true, colors: 5 })
-    // console.log(colors)
-  }, [imageUrl]);
 
   return (
     <div

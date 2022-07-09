@@ -33,7 +33,6 @@ function GeneralWidgetsMenu(props) {
     top: 0,
     zIndex: 12,
   };
-  // console.log(props.widgetType)
 
   return (
     <div style={buttonStyle}>

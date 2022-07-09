@@ -9,22 +9,25 @@ function Enclosure(props) {
   const [widgetSettingsData, setWidgetSettingsData] = useState({});
 
   useEffect(() => {
-    if (Object.keys(widgetSettingsData).length != 0)
+    if (Object.keys(widgetSettingsData).length !== 0) {
       cacheStorageSave(
         'widgetSettings-' + props.name,
         JSON.stringify(widgetSettingsData),
       );
+    }
   }, [widgetSettingsData]);
 
   useEffect(() => {
-    const existingWidgetSettingsData = cacheStorageRead(
-      'widgetSettings-' + props.name,
-    );
-    setWidgetSettingsData(
-      existingWidgetSettingsData
-        ? JSON.parse(existingWidgetSettingsData.data)
-        : {},
-    ); //TODO: DEFAULT SETTINGS
+    (async () => {
+      const existingWidgetSettingsData = await cacheStorageRead(
+        'widgetSettings-' + props.name,
+      );
+      setWidgetSettingsData(
+        existingWidgetSettingsData
+          ? JSON.parse(existingWidgetSettingsData.data)
+          : {},
+      ); //TODO: DEFAULT SETTINGS
+    })();
   }, []);
 
   return (
