@@ -5,7 +5,7 @@ import useWindowDimensions from 'utils/windowDimension';
 import GeneralSettings from './containers/GeneralSettings';
 import { ThemeProvider } from '@mui/material/styles';
 import { useRef, useState } from 'react';
-import { initialPalette } from 'components/Util/initialPalatte';
+import { initialPalette } from 'utils/initialPalatte';
 
 function App() {
   const { height, width } = useWindowDimensions();
