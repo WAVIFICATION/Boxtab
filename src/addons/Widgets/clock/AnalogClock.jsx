@@ -1,21 +1,20 @@
 import { useEffect, useState } from 'react';
 import Clock from 'react-clock';
 import 'react-clock/dist/Clock.css';
-import { addMinutesToDate } from 'utils/datetime';
-import { timeZoneDelta } from 'utils/datetime';
+import { timeZoneDelta, addMinutesToDate } from 'utils/datetime';
 import { useTimer } from 'utils/timer';
 
-function AnalogClock(props) {
+function AnalogClock({ settings, height, width }) {
   let tzDiff = 0;
   const { timer } = useTimer();
-  if (props.settings.timeZone) tzDiff = timeZoneDelta(props.settings.timeZone);
+  if (settings.timeZone) tzDiff = timeZoneDelta(settings.timeZone);
   const [value, setValue] = useState(addMinutesToDate(new Date(), tzDiff));
 
   useEffect(() => {
     setValue(addMinutesToDate(new Date(), tzDiff));
-  }, [timer, props.settings]);
+  }, [timer, settings]);
 
-  return <Clock value={value} size={Math.min(props.height, props.width)} />;
+  return <Clock value={value} size={Math.min(height, width)} />;
 }
 
 export default AnalogClock;

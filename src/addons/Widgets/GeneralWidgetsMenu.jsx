@@ -2,17 +2,23 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { IconButton } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
-import { default as ClockMenu } from './clock/menu';
-import { default as TextBoxMenu } from './TextBox/menu';
 import Paper from '@mui/material/Paper';
 import { useState, useEffect } from 'react';
+import ClockMenu from './clock/menu';
+import TextBoxMenu from './TextBox/menu';
 
-function GeneralWidgetsMenu(props) {
+function GeneralWidgetsMenu({
+  generalSettingsOutro,
+  generalSettingsIntro,
+  widgetType,
+  width,
+  height,
+}) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [settings, setSettings] = useState({});
 
   const open = Boolean(anchorEl);
-  const handleClick = event => {
+  const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
@@ -20,11 +26,11 @@ function GeneralWidgetsMenu(props) {
   };
 
   useEffect(() => {
-    props.generalSettingsOutro(settings);
+    generalSettingsOutro(settings);
   }, [settings]);
 
   useEffect(() => {
-    setSettings(props.generalSettingsIntro);
+    setSettings(generalSettingsIntro);
   }, []);
 
   const buttonStyle = {
@@ -61,19 +67,19 @@ function GeneralWidgetsMenu(props) {
           <MenuItem onClick={handleClose}>My account</MenuItem>
           <MenuItem onClick={handleClose}>Logout</MenuItem> */}
           <MenuItem>
-            {(props.widgetType === 'AnalogClock' ||
-              props.widgetType === 'DigitalClock') && (
+            {(widgetType === 'AnalogClock'
+              || widgetType === 'DigitalClock') && (
               <ClockMenu
-                width={props.width}
-                height={props.height}
+                width={width}
+                height={height}
                 settingsOutro={setSettings}
                 settingsIntro={settings}
               />
             )}
-            {props.widgetType === 'TextBox' && (
+            {widgetType === 'TextBox' && (
               <TextBoxMenu
-                width={props.width}
-                height={props.height}
+                width={width}
+                height={height}
                 settingsOutro={setSettings}
                 settingsIntro={settings}
               />

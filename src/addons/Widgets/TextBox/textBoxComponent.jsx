@@ -1,15 +1,16 @@
 import { Typography } from '@mui/material';
-function TextBoxComponent(props) {
-  const textLength = (props.text ? props.text.length : 1) / 1.5;
+import config from 'config.json';
+
+function TextBoxComponent({ text, height }) {
   return (
     <Typography
       className="foreground"
-      align={'center'}
+      align="center"
       style={{
-        fontSize: props.width / textLength,
+        fontSize: height * config.textHeightRatio,
       }}
     >
-      {props.text}
+      {text}
     </Typography>
   );
 }

@@ -1,8 +1,8 @@
-export async function getRandomImage() {
+export default async function getRandomImage() {
   const url = 'https://api.unsplash.com/photos/random';
   const params = new URLSearchParams();
   const headers = new Headers({
-    Authorization: 'Client-ID ' + process.env.REACT_APP_Unsplash_API_Key,
+    Authorization: `Client-ID ${process.env.REACT_APP_Unsplash_API_Key}`,
   });
   const response = await fetch(`${url}?${params}`, {
     headers,
@@ -10,7 +10,7 @@ export async function getRandomImage() {
   });
   const body = [];
   body.push(await response.json());
-  return body.map(image => ({
+  return body.map((image) => ({
     src: image.urls.raw,
     credit: {
       imageLink: image.links.html,

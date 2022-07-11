@@ -1,4 +1,5 @@
 import { createTheme } from '@mui/material/styles';
+
 export function initialPalette() {
   return createTheme({
     palette: {
@@ -8,12 +9,13 @@ export function initialPalette() {
 }
 
 export function customPalette(imagePalette) {
-  if (!imagePalette)
+  if (!imagePalette) {
     return createTheme({
       palette: {
         mode: 'light',
       },
     });
+  }
 
   return createTheme({
     palette: {

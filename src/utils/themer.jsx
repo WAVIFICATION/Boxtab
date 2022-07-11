@@ -1,4 +1,6 @@
-import React, { createContext, useState, useEffect, useContext } from 'react';
+import {
+  createContext, useState, useEffect, useContext,
+} from 'react';
 
 const ThemeContext = createContext();
 
@@ -19,6 +21,7 @@ export default function ThemeProvider({ children }) {
 
   return (
     <ThemeContext.Provider
+      // eslint-disable-next-line react/jsx-no-constructed-context-values
       value={{
         theme,
         setTheme,

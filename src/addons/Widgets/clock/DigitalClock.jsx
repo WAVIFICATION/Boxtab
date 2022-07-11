@@ -4,25 +4,26 @@ import { timeZoneDelta } from 'utils/datetime';
 import { useTimer } from 'utils/timer';
 import Typography from '@mui/material/Typography';
 import moment from 'moment-timezone';
+import config from 'config.json';
 
-function DigitalClock(props) {
+function DigitalClock({ settings, height }) {
   let tzDiff = 0;
   const { timer } = useTimer();
 
-  if (props.settings.timeZone) tzDiff = timeZoneDelta(props.settings.timeZone);
+  if (settings.timeZone) tzDiff = timeZoneDelta(settings.timeZone);
 
   const [value, setValue] = useState(moment().add(tzDiff, 'minutes'));
 
   useEffect(() => {
     setValue(moment().add(tzDiff, 'minutes'));
-  }, [timer, props.settings]);
+  }, [timer, settings]);
 
   return (
     <Typography
       className="foreground"
-      align={'center'}
+      align="center"
       style={{
-        fontSize: props.width / 8,
+        fontSize: height * config.textHeightRatio,
       }}
     >
       {value.format('h : mm : ss a')}

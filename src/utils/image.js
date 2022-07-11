@@ -1,7 +1,7 @@
-export function imageOptimisation(screenWidth) {
-  screenWidth = screenWidth;
-  screenWidth = Math.max(screenWidth, 1920);
-  screenWidth = Math.min(screenWidth, 3840);
-  screenWidth = Math.ceil(screenWidth / 240) * 240;
-  return screenWidth;
+export default function imageOptimisation(screenWidth) {
+  let optimisedScreenWidth = Math.max(screenWidth, 1080);
+  optimisedScreenWidth = Math.max(optimisedScreenWidth, 1920);
+  optimisedScreenWidth = Math.min(optimisedScreenWidth, 3840);
+  optimisedScreenWidth = Math.ceil(optimisedScreenWidth / 240) * 240;
+  return optimisedScreenWidth;
 }
