@@ -10,7 +10,7 @@ function Enclosure(props) {
   const [widgetSettingsData, setWidgetSettingsData] = useState({});
 
   useEffect(() => {
-    if (_.isEmpty(widgetSettingsData)) {
+    if (!_.isEmpty(widgetSettingsData)) {
       cacheStorageSave(
         'widgetSettings-' + props.name,
         JSON.stringify(widgetSettingsData),
