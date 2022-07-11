@@ -1,12 +1,12 @@
 import { useEffect, useState, cloneElement, Children } from 'react';
 import { cacheStorageSave, cacheStorageRead } from 'utils/cache';
 import { now, addMinutesToDate } from 'utils/datetime';
-import { customPalette } from 'components/Util/initialPalatte';
+import { customPalette } from 'utils/initialPalatte';
 import { imageOptimisation } from 'utils/image';
 import { getRandomImage } from './api';
 import './index.css';
 import Credits from './credits';
-import { getPalette } from './paletteFinder';
+import { getPalette } from '../../../utils/paletteFinder';
 
 function Unsplash(props) {
   const params = new URLSearchParams();
@@ -68,6 +68,7 @@ function Unsplash(props) {
       className="fullscreen"
       style={{
         backgroundImage: imageUrl ? `url(${imageUrl}?${params})` : undefined,
+        backgroundColor: 'black',
         width: props.width,
         height: props.height,
       }}
