@@ -1,21 +1,26 @@
-import { useEffect, useState, cloneElement, Children } from 'react';
+import {
+  useEffect, useState, cloneElement, Children,
+} from 'react';
 import { cacheStorageSave, cacheStorageRead } from 'utils/cache';
 import { now, addMinutesToDate } from 'utils/datetime';
 import { customPalette } from 'utils/initialPalatte';
-import { imageOptimisation } from 'utils/image';
-import { getRandomImage } from './api';
+import imageOptimisation from 'utils/image';
+import config from 'config.json';
+import getRandomImage from './api';
 import './index.css';
 import Credits from './credits';
-import { getPalette } from 'utils/paletteFinder';
+import getPalette from '../../../utils/paletteFinder';
 
-function Unsplash(props) {
+function Unsplash({
+  width, height, setThemeUpdate, children,
+}) {
   const params = new URLSearchParams();
   params.append('q', 85);
-  params.append('w', imageOptimisation(props.width));
+  params.append('w', imageOptimisation(width));
 
   const [imageUrl, setImageUrl] = useState('');
   const [creditsDetails, setcreditsDetails] = useState('');
-  const timeLimit = 5; //5min
+  const { timeLimit } = config; // 5min
 
   useEffect(() => {
     const fetchImageInfoBlock = async () => {
@@ -27,13 +32,13 @@ function Unsplash(props) {
       const nowTime = now();
 
       if (
-        cachedimageInfoBlock != null &&
-        addMinutesToDate(new Date(cachedimageInfoBlock.updateBy), timeLimit) >
-          nowTime
+        cachedimageInfoBlock != null
+        && addMinutesToDate(new Date(cachedimageInfoBlock.updateBy), timeLimit)
+          > nowTime
       ) {
         imageInfoBlock = cachedimageInfoBlock.data;
         imagePalette = (await cacheStorageRead('Unsplash-imagePalette')).data; // read saved palette for the image
-        props.setThemeUpdate(customPalette(imagePalette));
+        setThemeUpdate(customPalette(imagePalette));
       } else {
         imageInfoBlock = await getRandomImage();
         imageInfoBlock = imageInfoBlock[0];
@@ -44,9 +49,9 @@ function Unsplash(props) {
           addMinutesToDate(nowTime, timeLimit),
         );
 
-        getPalette(imageInfoBlock.src + '?' + params).then(async extracts => {
+        getPalette(`${imageInfoBlock.src}?${params}`).then(async (extracts) => {
           imagePalette = extracts; // setting value on new image
-          props.setThemeUpdate(customPalette(imagePalette));
+          setThemeUpdate(customPalette(imagePalette));
           await cacheStorageSave(
             'Unsplash-imagePalette',
             extracts,
@@ -60,7 +65,6 @@ function Unsplash(props) {
       setcreditsDetails(imageInfoBlock.credit);
     };
     fetchImageInfoBlock();
-    return;
   }, []);
 
   return (
@@ -68,18 +72,12 @@ function Unsplash(props) {
       className="fullscreen"
       style={{
         backgroundImage: imageUrl ? `url(${imageUrl}?${params})` : undefined,
+        width,
+        height,
         backgroundColor: 'black',
-        width: props.width,
-        height: props.height,
       }}
     >
-      {Children.map(props.children, child => {
-        return cloneElement(
-          child,
-          { height: props.height, width: props.width },
-          null,
-        );
-      })}
+      {Children.map(children, (child) => cloneElement(child, { height, width }, null))}
       <Credits credits={creditsDetails} />
     </div>
   );

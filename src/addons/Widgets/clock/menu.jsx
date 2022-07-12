@@ -1,26 +1,22 @@
-import React from 'react';
 import FormControl from '@mui/material/FormControl';
 import Autocomplete from '@mui/material/Autocomplete';
 import moment from 'moment-timezone';
 import TextField from '@mui/material/TextField';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import stopPropagation from 'utils/stopPropogation';
 
-function Menu(props) {
-  const defaultTimeZone =
-    'timeZone' in props.settingsIntro
-      ? props.settingsIntro.timeZone
-      : 'default';
+function Menu({ settingsIntro, settingsOutro }) {
+  const defaultTimeZone = 'timeZone' in settingsIntro ? settingsIntro.timeZone : 'default';
   const listOfTimezones = moment.tz.names();
-  const [timeZone, setTimeZone] = React.useState(defaultTimeZone);
-  const handleChange = event => {
+  const [timeZone, setTimeZone] = useState(defaultTimeZone);
+  const handleChange = (event) => {
     setTimeZone(event.target.textContent);
   };
 
   listOfTimezones.push('default');
 
   useEffect(() => {
-    props.settingsOutro({ timeZone: timeZone });
+    settingsOutro({ timeZone });
   }, [timeZone]);
 
   return (
@@ -29,12 +25,12 @@ function Menu(props) {
         id="highlights-demo"
         style={{ width: '15rem' }}
         options={listOfTimezones}
-        getOptionLabel={option => option}
+        // getOptionLabel={option => option}
         // defaultValue={defaultTimeZone}
         value={defaultTimeZone}
         onChange={handleChange}
         onKeyDown={stopPropagation}
-        renderInput={params => (
+        renderInput={(params) => (
           <TextField {...params} label="Timezone" margin="normal" />
         )}
       />

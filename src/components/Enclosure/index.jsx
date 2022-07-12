@@ -6,13 +6,15 @@ import BlurBackground from 'components/Util/bluredBackground';
 import Card from '@mui/material/Card';
 import _ from 'lodash';
 
-function Enclosure(props) {
+function Enclosure({
+  name, height, width, type, editVisible,
+}) {
   const [widgetSettingsData, setWidgetSettingsData] = useState({});
 
   useEffect(() => {
     if (!_.isEmpty(widgetSettingsData)) {
       cacheStorageSave(
-        'widgetSettings-' + props.name,
+        `widgetSettings-${name}`,
         JSON.stringify(widgetSettingsData),
       );
     }
@@ -21,35 +23,35 @@ function Enclosure(props) {
   useEffect(() => {
     (async () => {
       const existingWidgetSettingsData = await cacheStorageRead(
-        'widgetSettings-' + props.name,
+        `widgetSettings-${name}`,
       );
       setWidgetSettingsData(
         existingWidgetSettingsData
           ? JSON.parse(existingWidgetSettingsData.data)
           : {},
-      ); //TODO: DEFAULT SETTINGS
+      ); // TODO: DEFAULT SETTINGS
     })();
   }, []);
 
   return (
     <div style={{ display: 'inline-block' }}>
       <Card
-        sx={{ width: props.width, height: props.height }}
+        sx={{ width, height }}
         style={{ backgroundColor: 'transparent', borderRadius: '0' }}
       >
-        <BlurBackground width={props.width} height={props.height} />
-        {props.editVisible && (
+        <BlurBackground width={width} height={height} />
+        {editVisible && (
           <GeneralWidgetsMenu
-            name={props.name}
-            widgetType={props.type}
+            name={name}
+            widgetType={type}
             generalSettingsIntro={widgetSettingsData}
             generalSettingsOutro={setWidgetSettingsData}
           />
         )}
         <Widgets
-          width={props.width}
-          height={props.height}
-          type={props.type}
+          width={width}
+          height={height}
+          type={type}
           settings={widgetSettingsData}
         />
       </Card>

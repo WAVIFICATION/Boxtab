@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import {
+  useEffect, useState, forwardRef, useImperativeHandle,
+} from 'react';
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
 import RGL, { WidthProvider } from 'react-grid-layout';
 import Enclosure from 'components/Enclosure';
 import { cacheStorageSave, cacheStorageRead } from 'utils/cache';
-import { forwardRef, useImperativeHandle } from 'react';
 import { nanoid } from 'nanoid';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { IconButton } from '@mui/material';
@@ -45,20 +46,28 @@ const Grid = forwardRef((props, ref) => {
     await cacheStorageSave('widgetList', JSON.stringify(widgetListCache));
   } // save widgetList to local storage if it gets updated
 
-  async function changedLayout(layout) {
-    setLayout(layout);
-    await cacheStorageSave('layout', JSON.stringify(layout));
+  async function removeWidgets(key) {
+    setLayout(_.reject(layout, { i: key })); // removing from layout
+
+    const updatedWidgetList = _.reject(widgetList, { i: key });
+    setWidgetList(updatedWidgetList); // removing from widget list
+    await updateWidgetListCache(updatedWidgetList);
   }
 
-  function generateLayout(layout) {
-    const widgetlister = _.find(widgetList, { i: layout.i });
+  async function changedLayout(newLayout) {
+    setLayout(newLayout);
+    await cacheStorageSave('layout', JSON.stringify(newLayout));
+  }
+
+  function generateLayout(newLayout) {
+    const widgetlister = _.find(widgetList, { i: newLayout.i });
     return (
-      <div key={layout.i} style={{ overflow: 'hidden' }}>
+      <div key={newLayout.i} style={{ overflow: 'hidden' }}>
         <TimerProvider>
           <Enclosure
-            name={layout.i}
-            height={layout.h * rowHeight}
-            width={(layout.w * props.width) / cols}
+            name={newLayout.i}
+            height={newLayout.h * rowHeight}
+            width={(newLayout.w * props.width) / cols}
             type={widgetlister ? widgetlister.type : null}
             editVisible={enableEdit}
           />
@@ -68,7 +77,7 @@ const Grid = forwardRef((props, ref) => {
             color="primary"
             component="span"
             style={removeStyle}
-            onClick={async () => await removeWidgets(layout.i)}
+            onClick={() => removeWidgets(newLayout.i)}
           >
             <CancelIcon />
           </IconButton>
@@ -98,14 +107,6 @@ const Grid = forwardRef((props, ref) => {
     },
   }));
 
-  async function removeWidgets(key) {
-    setLayout(_.reject(layout, { i: key })); // removing from layout
-
-    const updatedWidgetList = _.reject(widgetList, { i: key });
-    setWidgetList(updatedWidgetList); //removing from widget list
-    await updateWidgetListCache(updatedWidgetList);
-  }
-
   return (
     <>
       <Button
@@ -133,15 +134,15 @@ const Grid = forwardRef((props, ref) => {
           layout={layout}
           cols={cols}
           rowHeight={rowHeight}
-          onLayoutChange={changedLayout}
+          onLayoutChange={(newlayout) => changedLayout(newlayout)}
           compactType={null}
-          isBounded={true}
+          isBounded
           style={{ width: '100%', height: '100%' }}
           margin={[0, 0]}
-          preventCollision={true}
+          preventCollision
           isDraggable={enableEdit}
           isResizable={enableEdit}
-          useCSSTransforms={true}
+          useCSSTransforms
           // allowOverlap={true}
         >
           {layout.map(generateLayout)}

@@ -9,11 +9,11 @@ export function addMinutesToDate(date, minutes) {
 }
 
 export function timeZoneDelta(timeZone) {
-  var now = momentTz.utc();
+  const nowTime = momentTz.utc();
   const currentNow = momentTz.tz.guess();
   const currentTz = momentTz.tz.zone(currentNow);
   const settingsTz = momentTz.tz.zone(
-    timeZone == 'default' ? currentNow : timeZone,
+    timeZone === 'default' ? currentNow : timeZone,
   );
-  return settingsTz.utcOffset(now) - currentTz.utcOffset(now);
+  return settingsTz.utcOffset(nowTime) - currentTz.utcOffset(nowTime);
 }

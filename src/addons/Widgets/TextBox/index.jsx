@@ -1,11 +1,11 @@
 import TextBoxComponent from './textBoxComponent';
 
-function TextBox(props) {
+function TextBox({ width, height, settings }) {
   return (
     <TextBoxComponent
-      width={props.width}
-      height={props.height}
-      text={props.settings.textBoxValue}
+      width={width}
+      height={height}
+      text={settings.textBoxValue}
     />
   );
 }

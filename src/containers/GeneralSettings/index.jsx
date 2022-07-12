@@ -1,4 +1,3 @@
-import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
@@ -14,7 +13,23 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import ListOfwidgets from 'addons/Widgets/ListOfWidgets';
 import { Card } from '@mui/material';
 
-export default function GeneralSettings(props) {
+function WidgetLister(widgetInfo, addWidgets, handleClose) {
+  const { WidgetName, DisplayName } = widgetInfo;
+  return (
+    <ListItemButton sx={{ pl: 4 }} key={WidgetName}>
+      <ListItemIcon>{/* <InboxIcon /> */}</ListItemIcon>
+      <ListItemText
+        primary={DisplayName}
+        onClick={async () => {
+          await addWidgets(WidgetName);
+          handleClose();
+        }}
+      />
+    </ListItemButton>
+  );
+}
+
+export default function GeneralSettings({ addWidgets }) {
   const [open, setOpen] = useState(false);
   const [openWidgets, setOpenWidgets] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -70,29 +85,15 @@ export default function GeneralSettings(props) {
             </ListItemButton>
             <Collapse in={openWidgets} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
-                {ListOfwidgets.list.map(widgets =>
-                  WidgetLister(widgets, props.addWidgets, handleClose),
-                )}
+                {
+                  // eslint-disable-next-line max-len
+                  ListOfwidgets.map((widgets) => WidgetLister(widgets, addWidgets, handleClose))
+                }
               </List>
             </Collapse>
           </List>
         </Card>
       </Modal>
     </div>
-  );
-}
-
-function WidgetLister(widgetInfo, addWidgets, handleClose) {
-  return (
-    <ListItemButton sx={{ pl: 4 }} key={widgetInfo.WidgetName}>
-      <ListItemIcon>{/* <InboxIcon /> */}</ListItemIcon>
-      <ListItemText
-        primary={widgetInfo.DisplayName}
-        onClick={async () => {
-          await addWidgets(widgetInfo.WidgetName);
-          handleClose();
-        }}
-      />
-    </ListItemButton>
   );
 }

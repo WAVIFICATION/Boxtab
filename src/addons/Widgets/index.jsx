@@ -1,25 +1,17 @@
-import React from 'react';
-import Clock from './clock/';
+import Clock from './clock';
 import TextBox from './TextBox';
 
-function Widgets(props) {
-  if (props.type === 'AnalogClock' || props.type === 'DigitalClock') {
+function Widgets({
+  type, width, height, settings,
+}) {
+  if (type === 'AnalogClock' || type === 'DigitalClock') {
     return (
-      <Clock
-        type={props.type}
-        width={props.width}
-        height={props.height}
-        settings={props.settings}
-      />
+      <Clock type={type} width={width} height={height} settings={settings} />
     );
-  } else if (props.type === 'TextBox') {
+  }
+  if (type === 'TextBox') {
     return (
-      <TextBox
-        type={props.type}
-        width={props.width}
-        height={props.height}
-        settings={props.settings}
-      />
+      <TextBox type={type} width={width} height={height} settings={settings} />
     );
   }
 }

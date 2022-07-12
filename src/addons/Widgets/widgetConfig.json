@@ -1,0 +1,5 @@
+{
+    "WIDGET_TYPE_ANALOGCLOCK" : "AnalogClock",
+    "WIDGET_TYPE_DIGITALCLOCK" : "DigitalClock",
+    "WIDGET_TYPE_TEXTBOX" : "TextBox"
+}

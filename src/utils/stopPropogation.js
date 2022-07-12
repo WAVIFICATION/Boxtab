@@ -1,4 +1,4 @@
-const stopPropagation = e => {
+const stopPropagation = (e) => {
   switch (e.key) {
     case 'ArrowDown':
     case 'ArrowUp':

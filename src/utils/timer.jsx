@@ -1,4 +1,6 @@
-import React, { createContext, useState, useEffect, useContext } from 'react';
+import {
+  createContext, useState, useEffect, useContext,
+} from 'react';
 
 const TimerContext = createContext();
 
@@ -15,6 +17,7 @@ export default function TimerProvider({ children }) {
 
   return (
     <TimerContext.Provider
+      // eslint-disable-next-line react/jsx-no-constructed-context-values
       value={{
         timer,
       }}

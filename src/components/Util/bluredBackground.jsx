@@ -1,5 +1,6 @@
 import { Box } from '@mui/material';
-export default function BlurBackground(props) {
+
+export default function BlurBackground({ width, height, children }) {
   return (
     <Box
       style={{
@@ -13,9 +14,9 @@ export default function BlurBackground(props) {
         left: 0,
         zIndex: -1,
       }}
-      sx={{ width: props.width, height: props.height }}
+      sx={{ width, height }}
     >
-      {'children' in props ? props.children : ''}
+      {children ?? ''}
     </Box>
   );
 }

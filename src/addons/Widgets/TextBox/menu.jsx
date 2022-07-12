@@ -1,25 +1,20 @@
-import React from 'react';
 import TextField from '@mui/material/TextField';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import stopPropagation from 'utils/stopPropogation';
 
-function Menu(props) {
-  const [textBoxValue, setTextBoxValue] = React.useState('');
+function Menu({ settingsIntro, settingsOutro }) {
+  const [textBoxValue, setTextBoxValue] = useState('');
 
-  const handleChange = event => {
+  const handleChange = (event) => {
     setTextBoxValue(event.target.value);
   };
 
   useEffect(() => {
-    setTextBoxValue(
-      'textBoxValue' in props.settingsIntro
-        ? props.settingsIntro.textBoxValue
-        : '',
-    ); //initialise value
+    setTextBoxValue(settingsIntro.textBoxValue ?? ''); // initialise value
   }, []);
 
   useEffect(() => {
-    props.settingsOutro({ textBoxValue: textBoxValue });
+    settingsOutro({ textBoxValue });
   }, [textBoxValue]);
 
   return (

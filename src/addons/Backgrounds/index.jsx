@@ -1,14 +1,12 @@
 import Unsplash from './unsplash';
 
-function Background(props) {
-  if (props.model === 'Unsplash') {
+function Background({
+  model, height, width, children, setThemeUpdate,
+}) {
+  if (model === 'Unsplash') {
     return (
-      <Unsplash
-        height={props.height}
-        width={props.width}
-        setThemeUpdate={props.setThemeUpdate}
-      >
-        {props.children}
+      <Unsplash height={height} width={width} setThemeUpdate={setThemeUpdate}>
+        {children}
       </Unsplash>
     );
   }
