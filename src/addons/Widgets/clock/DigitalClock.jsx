@@ -7,11 +7,8 @@ import moment from 'moment-timezone';
 import config from 'config.json';
 
 function DigitalClock({ settings, height }) {
-  let tzDiff = 0;
   const { timer } = useTimer();
-
-  if (settings.timeZone) tzDiff = timeZoneDelta(settings.timeZone);
-
+  const tzDiff = settings.timeZone ? timeZoneDelta(settings.timeZone) : 0;
   const [value, setValue] = useState(moment().add(tzDiff, 'minutes'));
 
   useEffect(() => {

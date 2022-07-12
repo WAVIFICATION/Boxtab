@@ -16,6 +16,7 @@
     "react/jsx-uses-react": "off",
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
+    "react/jsx-props-no-spreading" : "off",
     "react/jsx-filename-extension": "error",
     "linebreak-style": 0,
     "prefer-destructuring": ["error", {"object": true, "array": false}]

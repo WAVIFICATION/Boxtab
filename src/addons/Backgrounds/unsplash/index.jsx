@@ -5,10 +5,11 @@ import { cacheStorageSave, cacheStorageRead } from 'utils/cache';
 import { now, addMinutesToDate } from 'utils/datetime';
 import { customPalette } from 'components/Util/initialPalatte';
 import imageOptimisation from 'utils/image';
+import config from 'config.json';
 import getRandomImage from './api';
 import './index.css';
 import Credits from './credits';
-import getPalette from './paletteFinder';
+import getPalette from '../../../utils/paletteFinder';
 
 function Unsplash({
   width, height, setThemeUpdate, children,
@@ -19,7 +20,7 @@ function Unsplash({
 
   const [imageUrl, setImageUrl] = useState('');
   const [creditsDetails, setcreditsDetails] = useState('');
-  const timeLimit = 5; // 5min
+  const { timeLimit } = config; // 5min
 
   useEffect(() => {
     const fetchImageInfoBlock = async () => {

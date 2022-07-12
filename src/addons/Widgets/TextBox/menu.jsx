@@ -10,9 +10,7 @@ function Menu({ settingsIntro, settingsOutro }) {
   };
 
   useEffect(() => {
-    setTextBoxValue(
-      'textBoxValue' in settingsIntro ? settingsIntro.textBoxValue : '',
-    ); // initialise value
+    setTextBoxValue(settingsIntro.textBoxValue ?? ''); // initialise value
   }, []);
 
   useEffect(() => {
