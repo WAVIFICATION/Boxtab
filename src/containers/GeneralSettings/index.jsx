@@ -10,7 +10,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Collapse from '@mui/material/Collapse';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
-import ListOfwidgets from 'addons/Widgets/ListOfWidgets.json';
+import ListOfwidgets from 'addons/Widgets/ListOfWidgets';
 import { Card } from '@mui/material';
 
 function WidgetLister(widgetInfo, addWidgets, handleClose) {
@@ -87,7 +87,7 @@ export default function GeneralSettings({ addWidgets }) {
               <List component="div" disablePadding>
                 {
                   // eslint-disable-next-line max-len
-                  ListOfwidgets.list.map((widgets) => WidgetLister(widgets, addWidgets, handleClose))
+                  ListOfwidgets.map((widgets) => WidgetLister(widgets, addWidgets, handleClose))
                 }
               </List>
             </Collapse>

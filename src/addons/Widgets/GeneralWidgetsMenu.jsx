@@ -6,6 +6,7 @@ import Paper from '@mui/material/Paper';
 import { useState, useEffect } from 'react';
 import ClockMenu from './clock/menu';
 import TextBoxMenu from './TextBox/menu';
+import WidgetConfig from './widgetConfig.json';
 
 function GeneralWidgetsMenu({
   generalSettingsOutro,
@@ -67,8 +68,8 @@ function GeneralWidgetsMenu({
           <MenuItem onClick={handleClose}>My account</MenuItem>
           <MenuItem onClick={handleClose}>Logout</MenuItem> */}
           <MenuItem>
-            {(widgetType === 'AnalogClock'
-              || widgetType === 'DigitalClock') && (
+            {(widgetType === WidgetConfig.WIDGET_TYPE_ANALOGCLOCK
+              || widgetType === WidgetConfig.WIDGET_TYPE_DIGITALCLOCK) && (
               <ClockMenu
                 width={width}
                 height={height}
@@ -76,7 +77,7 @@ function GeneralWidgetsMenu({
                 settingsIntro={settings}
               />
             )}
-            {widgetType === 'TextBox' && (
+            {widgetType === WidgetConfig.WIDGET_TYPE_TEXTBOX && (
               <TextBoxMenu
                 width={width}
                 height={height}
