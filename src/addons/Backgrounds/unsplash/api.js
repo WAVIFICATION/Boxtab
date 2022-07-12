@@ -1,6 +1,7 @@
 export default async function getRandomImage() {
   const url = 'https://api.unsplash.com/photos/random';
   const params = new URLSearchParams();
+  params.append('collections', 1263731);
   const headers = new Headers({
     Authorization: `Client-ID ${process.env.REACT_APP_Unsplash_API_Key}`,
   });

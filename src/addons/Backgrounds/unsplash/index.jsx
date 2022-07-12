@@ -3,7 +3,7 @@ import {
 } from 'react';
 import { cacheStorageSave, cacheStorageRead } from 'utils/cache';
 import { now, addMinutesToDate } from 'utils/datetime';
-import { customPalette } from 'components/Util/initialPalatte';
+import { customPalette } from 'utils/initialPalatte';
 import imageOptimisation from 'utils/image';
 import config from 'config.json';
 import getRandomImage from './api';
@@ -74,6 +74,7 @@ function Unsplash({
         backgroundImage: imageUrl ? `url(${imageUrl}?${params})` : undefined,
         width,
         height,
+        backgroundColor: 'black',
       }}
     >
       {Children.map(children, (child) => cloneElement(child, { height, width }, null))}
