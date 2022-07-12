@@ -3,13 +3,14 @@
 // import getRandomImage from './api';
 // import './index.css';
 import Link from '@mui/material/Link';
+import config from 'config.json';
 
 function Credits({ credits }) {
   return (
     <div className="credits">
       <div className="credit-element">
         <Link
-          href={`${credits.userLink}?utm_source=Start&utm_medium=referral&utm_campaign=api-credit`}
+          href={`${credits.userLink}?utm_source=${config.AppName}&utm_medium=referral&utm_campaign=api-credit`}
           underline="hover"
           color="inherit"
         >
@@ -19,7 +20,7 @@ function Credits({ credits }) {
       /
       <div className="credit-element">
         <Link
-          href={`${credits.imageLink}?utm_source=Start&utm_medium=referral&utm_campaign=api-credit`}
+          href={`${credits.imageLink}?utm_source=${config.AppName}&utm_medium=referral&utm_campaign=api-credit`}
           underline="hover"
           color="inherit"
         >
@@ -29,7 +30,7 @@ function Credits({ credits }) {
       /
       <div className="credit-element">
         <Link
-          href="https://unsplash.com/?utm_source=Start&utm_medium=referral&utm_campaign=api-credit"
+          href={`https://unsplash.com/?utm_source=${config.AppName}&utm_medium=referral&utm_campaign=api-credit`}
           underline="hover"
           color="inherit"
         >
