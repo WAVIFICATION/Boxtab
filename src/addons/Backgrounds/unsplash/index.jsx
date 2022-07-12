@@ -6,7 +6,7 @@ import { imageOptimisation } from 'utils/image';
 import { getRandomImage } from './api';
 import './index.css';
 import Credits from './credits';
-import { getPalette } from '../../../utils/paletteFinder';
+import { getPalette } from 'utils/paletteFinder';
 
 function Unsplash(props) {
   const params = new URLSearchParams();
