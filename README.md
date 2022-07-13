@@ -12,8 +12,8 @@
 2. Depending on production/development env:
    1. For development `npm start` .
    2. Depending on target browser:
-      1. Firefox: `npm run build:firefox` .
-      2. Chrome: `npm run build:chrome` .
+      1. Firefox: `yarn build:firefox` .
+      2. Chrome: `yarn build:chrome` .
 
 ***
 

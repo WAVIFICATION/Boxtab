@@ -4,10 +4,10 @@
     "short_name": "Boxtab",
     "version": "0.0.1",
     "description": "Browser plugin with modular widgets",
-    "applications": {
+    "browser_specific_settings": {
       "gecko": {
         "id": "extension@boxtab.xyz",
-        "strict_min_version": "54.0"
+        "strict_min_version": "55.0"
       }
     },
     "chrome_settings_overrides": {
