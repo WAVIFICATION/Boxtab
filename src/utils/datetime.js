@@ -15,5 +15,5 @@ export function timeZoneDelta(timeZone) {
   const settingsTz = momentTz.tz.zone(
     timeZone === 'default' ? currentNow : timeZone,
   );
-  return settingsTz.utcOffset(nowTime) - currentTz.utcOffset(nowTime);
+  return currentTz.utcOffset(nowTime) - settingsTz.utcOffset(nowTime);
 }
