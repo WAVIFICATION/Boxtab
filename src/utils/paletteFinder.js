@@ -18,7 +18,7 @@ export default function getPalette(url) {
     image.src = url;
     image.crossOrigin = 'Anonymous';
 
-    image.onload = () => {
+    image.onload = function onload() {
       const colorThief = new ColorThief();
       const palette = colorThief.getPalette(this, 3);
       // const result = _.uniq(palette, item => JSON.stringify(item));
