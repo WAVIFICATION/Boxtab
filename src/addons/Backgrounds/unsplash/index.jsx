@@ -6,10 +6,10 @@ import { now, addMinutesToDate } from 'utils/datetime';
 import { customPalette } from 'utils/initialPalatte';
 import imageOptimisation from 'utils/image';
 import config from 'config.json';
+import getPalette from 'utils/paletteFinder';
 import getRandomImage from './api';
 import './index.css';
 import Credits from './credits';
-import getPalette from '../../../utils/paletteFinder';
 
 function Unsplash({
   width, height, setThemeUpdate, children,
