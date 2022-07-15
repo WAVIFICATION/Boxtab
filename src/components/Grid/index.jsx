@@ -135,15 +135,15 @@ const Grid = forwardRef((props, ref) => {
           cols={cols}
           rowHeight={rowHeight}
           onLayoutChange={(newlayout) => changedLayout(newlayout)}
-          compactType={null}
+          // compactType={null}
           isBounded
           style={{ width: '100%', height: '100%' }}
           margin={[0, 0]}
-          preventCollision
+          // preventCollision
           isDraggable={enableEdit}
           isResizable={enableEdit}
           useCSSTransforms
-          // allowOverlap={true}
+          allowOverlap
         >
           {layout.map(generateLayout)}
         </ReactGridLayout>
