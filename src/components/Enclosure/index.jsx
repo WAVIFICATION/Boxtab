@@ -49,6 +49,7 @@ function Enclosure({
           />
         )}
         <Widgets
+          name={name}
           width={width}
           height={height}
           type={type}

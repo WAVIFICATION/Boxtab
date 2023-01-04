@@ -4,7 +4,7 @@ import { IconButton } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import Paper from '@mui/material/Paper';
 import { useState, useEffect } from 'react';
-import ClockMenu from './clock/menu';
+import ClockMenu from './Clock/menu';
 import TextBoxMenu from './TextBox/menu';
 import WidgetConfig from './widgetConfig.json';
 

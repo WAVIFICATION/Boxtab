@@ -1,0 +1,13 @@
+.notes {
+  background-color: #e3dc70;
+  padding: 4%;
+  background-size: 30px 30px;
+ font: normal 14px verdana;
+ line-height: 25px;
+ padding: 2px 10px;
+}
+
+.noteField {
+    background: linear-gradient(transparent, transparent 1em, #91D1D3 1em);
+    background-size: 1em 1.2em;
+}
