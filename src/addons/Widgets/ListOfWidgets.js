@@ -1,21 +1,35 @@
-import WidgetConfig from './widgetConfig.json';
+import AnalogClock from './clock/AnalogClock';
+import DigitalClock from './clock/DigitalClock';
+import ClockMenu from './clock/menu';
+import TextBox from './TextBox';
+import TextBoxMenu from './TextBox/menu';
+import StickyNotes from './StickyNotes';
+import StickyNodesMenu from './StickyNotes/menu';
 
 const list = [
   {
     DisplayName: 'Analog Clock',
-    WidgetName: WidgetConfig.WIDGET_TYPE_ANALOGCLOCK,
+    WidgetName: 'AnalogClock',
+    Component: AnalogClock,
+    MenuComponent: ClockMenu,
   },
   {
     DisplayName: 'Digital Clock',
-    WidgetName: WidgetConfig.WIDGET_TYPE_DIGITALCLOCK,
+    WidgetName: 'DigitalClock',
+    Component: DigitalClock,
+    MenuComponent: ClockMenu,
   },
   {
     DisplayName: 'Text Box',
-    WidgetName: WidgetConfig.WIDGET_TYPE_TEXTBOX,
+    WidgetName: 'TextBox',
+    Component: TextBox,
+    MenuComponent: TextBoxMenu,
   },
   {
     DisplayName: 'Sticky Notes',
-    WidgetName: WidgetConfig.WIDGET_TYPE_STICKYNOTES,
+    WidgetName: 'StickyNotes',
+    Component: StickyNotes,
+    MenuComponent: StickyNodesMenu,
   },
 ];
 
