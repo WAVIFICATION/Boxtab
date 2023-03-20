@@ -4,9 +4,7 @@ import { IconButton } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import Paper from '@mui/material/Paper';
 import { useState, useEffect } from 'react';
-import ClockMenu from './clock/menu';
-import TextBoxMenu from './TextBox/menu';
-import WidgetConfig from './widgetConfig.json';
+import ListOfWidgets from './ListOfWidgets';
 
 function GeneralWidgetsMenu({
   generalSettingsOutro,
@@ -40,6 +38,9 @@ function GeneralWidgetsMenu({
     top: 0,
     zIndex: 12,
   };
+  const widgetComponent = ListOfWidgets.find(
+    (elem) => elem.WidgetName === widgetType,
+  );
 
   return (
     <div style={buttonStyle}>
@@ -64,21 +65,9 @@ function GeneralWidgetsMenu({
             'aria-labelledby': 'basic-button',
           }}
         >
-          {/* <MenuItem onClick={handleClose}>Profile</MenuItem>
-          <MenuItem onClick={handleClose}>My account</MenuItem>
-          <MenuItem onClick={handleClose}>Logout</MenuItem> */}
           <MenuItem>
-            {(widgetType === WidgetConfig.WIDGET_TYPE_ANALOGCLOCK
-              || widgetType === WidgetConfig.WIDGET_TYPE_DIGITALCLOCK) && (
-              <ClockMenu
-                width={width}
-                height={height}
-                settingsOutro={setSettings}
-                settingsIntro={settings}
-              />
-            )}
-            {widgetType === WidgetConfig.WIDGET_TYPE_TEXTBOX && (
-              <TextBoxMenu
+            {widgetComponent && (
+              <widgetComponent.MenuComponent
                 width={width}
                 height={height}
                 settingsOutro={setSettings}
