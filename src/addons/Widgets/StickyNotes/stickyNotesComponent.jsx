@@ -17,10 +17,12 @@ function StickyNotesComponent({
         multiline
         minRows={500}
         fullWidth
+        // color="black"
         value={note}
         variant="standard"
         onChange={handleChange}
-        sx={{ input: { color: 'black' } }}
+        // sx={{ input: { color: 'black', background: 'green' } }}
+        inputProps={{ style: { color: 'black' } }}
       />
     </Box>
   );

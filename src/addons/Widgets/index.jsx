@@ -1,5 +1,5 @@
 import WidgetConfig from './widgetConfig.json';
-import Clock from './Clock';
+import Clock from './clock';
 import TextBox from './TextBox';
 import StickyNotes from './StickyNotes';
 
