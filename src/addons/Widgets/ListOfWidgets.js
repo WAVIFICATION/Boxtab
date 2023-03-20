@@ -13,6 +13,10 @@ const list = [
     DisplayName: 'Text Box',
     WidgetName: WidgetConfig.WIDGET_TYPE_TEXTBOX,
   },
+  {
+    DisplayName: 'Sticky Notes',
+    WidgetName: WidgetConfig.WIDGET_TYPE_STICKYNOTES,
+  },
 ];
 
 export default list;
