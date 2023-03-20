@@ -8,9 +8,9 @@
 
 ## Usage
 
-1. Install dependencies using `npm install` .
+1. Install dependencies using `yarn` .
 2. Depending on production/development env:
-   1. For development `npm start` .
+   1. For development `yarn start` .
    2. Depending on target browser:
       1. Firefox: `yarn build:firefox` .
       2. Chrome: `yarn build:chrome` .
