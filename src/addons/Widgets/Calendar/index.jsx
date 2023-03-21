@@ -1,15 +1,12 @@
 import * as React from 'react';
 // import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
-import isBetweenPlugin from 'dayjs/plugin/isBetween';
 import { styled } from '@mui/material/styles';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { PickersDay } from '@mui/x-date-pickers/PickersDay';
 import './index.css';
-
-dayjs.extend(isBetweenPlugin);
 
 const CustomPickersDay = styled(PickersDay, {
   shouldForwardProp: (prop) => prop !== 'dayIsBetween' && prop !== 'isFirstDay' && prop !== 'isLastDay',
@@ -35,32 +32,20 @@ const CustomPickersDay = styled(PickersDay, {
 }));
 
 function Day(props) {
-  const { day, selectedDay, ...other } = props;
-
-  if (selectedDay == null) {
-    return <PickersDay day={day} {...other} />;
-  }
-
-  const start = selectedDay.startOf('week');
-  const end = selectedDay.endOf('week');
-
-  const dayIsBetween = day.isBetween(start, end, null, '[]');
-  const isFirstDay = day.isSame(start, 'day');
-  const isLastDay = day.isSame(end, 'day');
+  const {
+    day, selectedDay, height, width, ...other
+  } = props;
 
   return (
     <CustomPickersDay
       sx={{
-        height: '150px',
-        width: '200px',
+        height,
+        width,
+        fontSize: height / 6,
       }}
-      height={1000}
       {...other}
       day={day}
       disableMargin
-      dayIsBetween={dayIsBetween}
-      isFirstDay={isFirstDay}
-      isLastDay={isLastDay}
     />
   );
 }
@@ -73,16 +58,16 @@ function Day(props) {
 //   selectedDay: PropTypes.object,
 // };
 
-export default function CustomDay() {
-  const [value, setValue] = React.useState(dayjs('2022-04-17'));
+export default function CustomDay({ height, width }) {
+  const [value, setValue] = React.useState(dayjs());
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DateCalendar
         sx={{
-          height: '1000px',
-          width: '1200px',
-          maxHeight: '1000px',
+          height,
+          width,
+          maxHeight: height,
         }}
         value={value}
         onChange={(newValue) => setValue(newValue)}
@@ -90,8 +75,9 @@ export default function CustomDay() {
         slotProps={{
           day: {
             selectedDay: value,
+            height: (height - 94) / 6,
+            width: (height - 94) / 6,
           },
-          height: '1000px',
         }}
       />
     </LocalizationProvider>
