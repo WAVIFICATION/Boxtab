@@ -5,6 +5,8 @@ import TextBox from './TextBox';
 import TextBoxMenu from './TextBox/menu';
 import StickyNotes from './StickyNotes';
 import StickyNodesMenu from './StickyNotes/menu';
+import Calendar from './Calendar';
+import CalendarMenu from './Calendar/menu';
 
 const list = [
   {
@@ -30,6 +32,12 @@ const list = [
     WidgetName: 'StickyNotes',
     Component: StickyNotes,
     MenuComponent: StickyNodesMenu,
+  },
+  {
+    DisplayName: 'Calendar',
+    WidgetName: 'Calendar',
+    Component: Calendar,
+    MenuComponent: CalendarMenu,
   },
 ];
 

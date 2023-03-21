@@ -3,7 +3,7 @@ import { createTheme } from '@mui/material/styles';
 export function initialPalette() {
   return createTheme({
     palette: {
-      mode: 'dark',
+      mode: 'light',
     },
   });
 }
@@ -12,14 +12,14 @@ export function customPalette(imagePalette) {
   if (!imagePalette) {
     return createTheme({
       palette: {
-        mode: 'dark',
+        mode: 'light',
       },
     });
   }
 
   return createTheme({
     palette: {
-      mode: 'dark',
+      mode: 'light',
       text: {
         primary: imagePalette[1],
         secondary: imagePalette[1],

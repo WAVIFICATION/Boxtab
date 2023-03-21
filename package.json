@@ -7,7 +7,9 @@
     "@emotion/styled": "^11.9.3",
     "@mui/icons-material": "^5.8.4",
     "@mui/material": "^5.8.6",
+    "@mui/x-date-pickers": "^6.0.2",
     "colorthief": "^2.3.2",
+    "dayjs": "^1.11.7",
     "lodash": "^4.17.21",
     "moment": "^2.29.3",
     "moment-timezone": "^0.5.34",
@@ -21,6 +23,11 @@
     "react-scripts": "^5.0.1",
     "web-vitals": "^2.1.4"
   },
+  "files": [
+    "dist",
+    "README.md",
+    "src/**"
+  ],
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
