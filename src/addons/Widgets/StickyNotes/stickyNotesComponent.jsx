@@ -1,11 +1,7 @@
 import { Box, TextField } from '@mui/material';
 import './index.css';
 
-function StickyNotesComponent({
-  note,
-  setNote,
-  // height,
-}) {
+function StickyNotesComponent({ note, setNote, fontSize }) {
   const handleChange = (event) => {
     setNote(event.target.value);
   };
@@ -22,7 +18,7 @@ function StickyNotesComponent({
         variant="standard"
         onChange={handleChange}
         // sx={{ input: { color: 'black', background: 'green' } }}
-        inputProps={{ style: { color: 'black' } }}
+        inputProps={{ style: { color: 'black', fontSize } }}
       />
     </Box>
   );

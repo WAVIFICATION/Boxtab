@@ -1,31 +1,45 @@
-import TextField from '@mui/material/TextField';
 import { useEffect, useState } from 'react';
-import stopPropagation from 'utils/stopPropogation';
+import Box from '@mui/material/Box';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import { Select, MenuItem } from '@mui/material';
+
+const FONT_SIZES = [8, 12, 16, 18, 24];
 
 function Menu({ settingsIntro, settingsOutro }) {
-  const [textBoxValue, setTextBoxValue] = useState('');
+  const [fontSize, setfontSize] = useState(12);
 
   const handleChange = (event) => {
-    setTextBoxValue(event.target.value);
+    setfontSize(event.target.value);
   };
 
   useEffect(() => {
-    setTextBoxValue(settingsIntro.textBoxValue ?? ''); // initialise value
+    setfontSize(settingsIntro.fontSize ?? ''); // initialise value
   }, []);
 
   useEffect(() => {
-    settingsOutro({ textBoxValue });
-  }, [textBoxValue]);
+    settingsOutro({ fontSize });
+  }, [fontSize]);
 
   return (
-    <TextField
-      id="outlined-basic"
-      label="Display Text"
-      variant="outlined"
-      onChange={handleChange}
-      value={textBoxValue}
-      onKeyDown={stopPropagation}
-    />
+    <Box sx={{ minWidth: 50 }}>
+      <FormControl>
+        <InputLabel id="sticky-notes menu-label-text">Size</InputLabel>
+        <Select
+          id="sticky-notes menu"
+          labelId="sticky-notes menu-label-text"
+          value={fontSize}
+          label="Size"
+          onChange={handleChange}
+        >
+          {FONT_SIZES.map((item) => (
+            <MenuItem value={item} key={item}>
+              {item}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+    </Box>
   );
 }
 
