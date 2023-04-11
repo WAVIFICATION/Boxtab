@@ -135,6 +135,7 @@ const Grid = forwardRef((props, ref) => {
           cols={cols}
           rowHeight={rowHeight}
           onLayoutChange={(newlayout) => changedLayout(newlayout)}
+          onDragStop={(newlayout) => changedLayout(newlayout)}
           // compactType={null}
           isBounded
           style={{ width: '100%', height: '100%' }}

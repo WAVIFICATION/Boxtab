@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "Boxtab",
     "short_name": "Boxtab",
-    "version": "0.0.1",
+    "version": "0.0.6",
     "description": "Browser plugin with modular widgets",
     "browser_specific_settings": {
       "gecko": {
