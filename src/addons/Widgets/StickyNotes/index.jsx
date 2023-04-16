@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { cacheStorageSave, cacheStorageRead } from 'utils/cache';
 import StickyNotesComponent from './stickyNotesComponent';
 
-function StickyNotes({ name, height }) {
+function StickyNotes({ name, height, settings }) {
   const [note, setNote] = useState(null);
 
   useEffect(() => {
@@ -23,7 +23,12 @@ function StickyNotes({ name, height }) {
   }, [note]);
 
   return (
-    <StickyNotesComponent height={height} note={note ?? ''} setNote={setNote} />
+    <StickyNotesComponent
+      height={height}
+      note={note ?? ''}
+      setNote={setNote}
+      fontSize={settings.fontSize}
+    />
   );
 }
 export default StickyNotes;
